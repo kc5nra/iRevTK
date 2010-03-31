@@ -10,36 +10,52 @@
 #import "RootController.h"
 #import "RTKNewsRequest.h"
 #import "RTKNewsStories.h"
+#import "RTKManager.h"
+#import "AccountController.h"
 
 @implementation RevTKDelegate
 
+static RevTKDelegate *rtkApp = NULL;
+
 @synthesize window;
-@synthesize viewController;
-@synthesize newsStories;
+@synthesize navigationController;
 @synthesize alertDialogRunning;
 
+- (id)init 
+{
+	if (!rtkApp) {
+		rtkApp = [super init];
+		manager = [RTKManager sharedManager];
+	}
+	
+	return rtkApp;
+	
+}
+
++ (RevTKDelegate *)sharedRevTKApplication {
+	if (!rtkApp) {
+		rtkApp = [[RevTKDelegate alloc] init];
+	}
+	
+	return rtkApp;
+}
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     
-	RTKNewsRequest *request = [RTKNewsRequest newsRequestUsingGETMethod];
-	
-	[request startSynchronous];
-	
-	RTKNewsStories *stories = (RTKNewsStories *)[request object];
-	
-	[self setNewsStories:[stories newsStories]];
-	
-	[request release];
+	AccountController *accountController = [[AccountController alloc] init];
+	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController: accountController];
+	[self setNavigationController: aNavigationController];
 	
     // Override point for customization after app launch    
-    [window addSubview: [viewController view]];
+    [window addSubview: [navigationController view]];
     [window makeKeyAndVisible];
+	
+	[accountController release];
 }
 
 
 - (void)dealloc {
-	[newsStories release];
-    [viewController release];
+    [navigationController release];
     [window release];
     [super dealloc];
 }

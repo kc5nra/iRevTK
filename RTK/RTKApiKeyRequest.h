@@ -14,6 +14,6 @@
 {
 }
 
-+ (RTKApiKeyRequest *) apiKeyRequestUsingGETMethodUsingUsername: (NSString *)username withPassword:(NSString *)password;
++ (RTKApiKeyRequest *) get: (NSString *)username withPassword:(NSString *)password;
 
 @end

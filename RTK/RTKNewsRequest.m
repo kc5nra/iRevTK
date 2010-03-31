@@ -11,7 +11,7 @@
 
 @implementation RTKNewsRequest
 
-+ (id)newsRequestUsingGETMethod
++ (id)get
 {
 	RTKNewsRequest *request = [[self alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/api.php/news",kRTKApiRequestURL]]];
 	return request;

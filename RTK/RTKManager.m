@@ -10,7 +10,9 @@
 #import "RevTKDelegate.h"
 #import "RTKApiRequest.h"
 
-
+NSString* const kRTKPreferencesUsername		= @"username";
+NSString* const kRTKPreferencesApiKey		= @"apiKey";
+NSString* const kRTKPreferencesAutoLogin	= @"autoLogin";
 
 @implementation RTKManager
 
@@ -31,6 +33,32 @@ static RTKManager *sharedManager;
 	
 	sharedManager = [super alloc];
 	return sharedManager;
+}
+
+- (id)init 
+{
+	preferences = [NSUserDefaults standardUserDefaults];
+	
+	NSString *apiKey = [preferences stringForKey: kRTKPreferencesApiKey];
+	
+	// if we already have an apiKey, set it in the RTKApiRequest
+	if (apiKey) {
+		[RTKApiRequest setApiKey: apiKey];
+	}
+	
+	[apiKey release];
+	
+	return self;
+}
+
+- (BOOL)getBoolPreference:(NSString *)key 
+{
+	return [preferences boolForKey: key];
+}
+
+- (NSString *)getStringPreference: (NSString *)key
+{
+	return [preferences stringForKey: key];
 }
 
 #pragma mark Error Handling
@@ -59,11 +87,7 @@ static RTKManager *sharedManager;
 - (id)executeApiRequest:(RTKApiRequest *)request withErrorHandling:(BOOL)shouldHandleErrors {
 	
 	[request startSynchronous];
-	
-	RTKResponseObject *responseObject = [request object];
-	
-	return responseObject;
-	
+	return (id)[request object];
 }
 
 @end

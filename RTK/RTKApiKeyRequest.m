@@ -11,7 +11,7 @@
 
 @implementation RTKApiKeyRequest
 
-+ (RTKApiKeyRequest *)apiKeyRequestUsingGETMethodUsingUsername: (NSString *)username withPassword:(NSString *)password
++ (RTKApiKeyRequest *)get: (NSString *)username withPassword:(NSString *)password
 {
 	RTKApiKeyRequest *request = [[self alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/api.php/rest/apiKey",kRTKApiRequestURL]]];
 	[request setUsername: username];

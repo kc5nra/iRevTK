@@ -8,20 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@class RootController;
+@class RTKManager;
 
 @interface RevTKDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
-    RootController *viewController;
-	NSArray *newsStories;
+    IBOutlet UIWindow				*window;
+	IBOutlet UINavigationController *navigationController;
 	
 	BOOL alertDialogRunning;
+	RTKManager *manager;
 }
 
-@property (nonatomic, retain) IBOutlet	UIWindow		*window;
-@property (nonatomic, retain) IBOutlet	RootController	*viewController;
-@property (nonatomic)					BOOL			alertDialogRunning;
-@property (nonatomic, retain)			NSArray			*newsStories;
++ (RevTKDelegate *)sharedRevTKApplication;
+
+
+@property (nonatomic, retain) IBOutlet	UIWindow				*window;
+@property (nonatomic, retain) IBOutlet	UINavigationController	*navigationController;
+@property (nonatomic)					BOOL					alertDialogRunning;
 
 @end
 

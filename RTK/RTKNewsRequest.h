@@ -14,6 +14,6 @@
 
 }
 
-+ (id)newsRequestUsingGETMethod;
++ (id)get;
 
 @end

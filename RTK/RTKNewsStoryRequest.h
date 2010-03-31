@@ -13,6 +13,6 @@
 {	
 }
 
-+ (id)newsStoryRequestUsingGETMethod:(int)newsStoryId;	
++ (id)get:(int)newsStoryId;	
 
 @end

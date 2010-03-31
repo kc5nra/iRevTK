@@ -14,11 +14,11 @@
 @synthesize apiKey;
 
 - (void)parseResponse: (id) responseObject {
-	[self setApiKey: (NSString *)[responseObject object]];
+	[self setApiKey: (NSString *)responseObject];
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat: @"RTKApiKey { subject='%@' }", apiKey];
+	return [NSString stringWithFormat: @"RTKApiKey { apiKey='%@' }", apiKey];
 }
 
 - (void)dealloc

@@ -60,7 +60,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	RTKNewsStory *briefStory = [newsStories objectAtIndex: [indexPath row]];
 	
-	RTKNewsStoryRequest *request = [RTKNewsStoryRequest newsStoryRequestUsingGETMethod: [briefStory newsId]];
+	RTKNewsStoryRequest *request = [RTKNewsStoryRequest get: [briefStory newsId]];
 	
 	[request startSynchronous];
 	
