@@ -8,19 +8,36 @@
 
 #import <Foundation/Foundation.h>
 
+@class RTKApiRequest;
+@class ASIHTTPRequest;
+
 extern NSString* const kRTKPreferencesUsername;
 extern NSString* const kRTKPreferencesApiKey;
 extern NSString* const kRTKPreferencesAutoLogin;
 
 @interface RTKManager : NSObject {
-	NSUserDefaults	*preferences;
+	NSUserDefaults		*preferences;
+	NSOperationQueue	*networkQueue;
+	
+//	NSManagedObjectModel *managedObjectModel;
+//    NSManagedObjectContext *managedObjectContext;	    
+//    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+	
 }
 
-- (BOOL)getBoolPreference:(NSString *)key;
-- (NSString *)getStringPreference: (NSString *)key;
+- (BOOL)getBoolPreferenceForKey:(NSString *)key;
+- (NSString *)getStringPreferenceForKey: (NSString *)key;
+- (void)setBoolPreferenceForKey:(NSString *)key withValue:(BOOL)value;
+- (void)setStringPreferenceForKey:(NSString *)key withValue:(NSString *)value;
+
+- (void)pushAsyncApiRequest:(RTKApiRequest *)request;
+- (void)requestFinishedProxy:(ASIHTTPRequest *)request;
+- (void)requestFailedProxy:(ASIHTTPRequest *)request;
+
+
 
 + (RTKManager *)sharedManager;
 
-
+@property (retain) NSOperationQueue *networkQueue;
 
 @end

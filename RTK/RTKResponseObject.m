@@ -27,11 +27,6 @@
 
 @implementation RTKResponseObject
 
-@synthesize error;
-@synthesize isFragment;
-@synthesize parent;
-
-
 - (id)initWithResponseDictionary:(NSDictionary *)dictionary {
 	[super init];
 	// we have something
@@ -106,5 +101,10 @@
 	
 	return responseObject;
 }
+
+
+@synthesize error;
+@synthesize isFragment;
+@synthesize parent;
 
 @end

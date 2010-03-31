@@ -35,9 +35,18 @@ static RTKManager *sharedManager;
 	return sharedManager;
 }
 
+- (void)dealloc {
+	[networkQueue release];
+	[super dealloc];
+}
+
 - (id)init 
 {
 	preferences = [NSUserDefaults standardUserDefaults];
+	
+	if (![self networkQueue]) {
+		[self setNetworkQueue:[[NSOperationQueue alloc] init]];
+	}
 	
 	NSString *apiKey = [preferences stringForKey: kRTKPreferencesApiKey];
 	
@@ -51,15 +60,26 @@ static RTKManager *sharedManager;
 	return self;
 }
 
-- (BOOL)getBoolPreference:(NSString *)key 
+- (BOOL)getBoolPreferenceForKey:(NSString *)key 
 {
 	return [preferences boolForKey: key];
 }
 
-- (NSString *)getStringPreference: (NSString *)key
+- (NSString *)getStringPreferenceForKey: (NSString *)key
 {
 	return [preferences stringForKey: key];
 }
+
+- (void)setBoolPreferenceForKey:(NSString *)key withValue:(BOOL)value
+{
+	[preferences setBool:value forKey:key];
+}
+
+- (void)setStringPreferenceForKey:(NSString *)key withValue:(NSString *)value
+{
+	[preferences setObject:value forKey:key];
+}
+
 
 #pragma mark Error Handling
 
@@ -84,10 +104,25 @@ static RTKManager *sharedManager;
 	return YES;
 }
 
-- (id)executeApiRequest:(RTKApiRequest *)request withErrorHandling:(BOOL)shouldHandleErrors {
+- (void)pushAsyncApiRequest:(RTKApiRequest *)request 
+{
+	[request setDidFailSelector: @selector(requestFailed:)];
+	[request setDidFinishSelector: @selector(requestFinished:)];
+	[request setDelegate: self];
 	
-	[request startSynchronous];
-	return (id)[request object];
+	[[self networkQueue] addOperation: request];
 }
+
+- (void)requestFailedProxy:(ASIHTTPRequest *)request
+{
+
+}
+
+- (void)requestFinishedProxy:(ASIHTTPRequest *)request
+{
+
+}
+
+@synthesize networkQueue;
 
 @end

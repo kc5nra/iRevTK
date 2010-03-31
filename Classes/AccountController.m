@@ -11,8 +11,11 @@
 #import "RTKManager.h"
 #import "RTKApiKey.h"
 #import "RTKApiKeyRequest.h"
+#import "ASIHTTPRequest.h"
+
 
 @implementation AccountController
+
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -24,6 +27,9 @@
 }
 */
 
+- (void)dealloc {
+    [super dealloc];
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -33,26 +39,86 @@
 	[[self view] setBackgroundColor: [UIColor colorWithPatternImage: [UIImage imageNamed: @"Background.gif"]]];
 	manager = [RTKManager sharedManager];
 	
-//	// Create a 'right hand button' that is a activity Indicator
-//	CGRect frame = CGRectMake(0.0, 0.0, 25.0, 25.0);
-//	self.activityIndicator = [[UIActivityIndicatorView alloc]
-//							  initWithFrame:frame];
-//	[self.activityIndicator sizeToFit];
-//	self.activityIndicator.autoresizingMask =
-//    (UIViewAutoresizingFlexibleLeftMargin |
-//	 UIViewAutoresizingFlexibleRightMargin |
-//	 UIViewAutoresizingFlexibleTopMargin |
-//	 UIViewAutoresizingFlexibleBottomMargin);
-//	
-//	UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] 
-//									initWithCustomView:self.activityIndicator];
-//	loadingView.target = self;
-//	self.navigationItem.rightBarButtonItem = loadingView;
+	// Create a 'right hand button' that is a activity Indicator
+	CGRect frame = CGRectMake(0.0, 0.0, 25.0, 25.0);
+	[self setActivityIndicator: [[UIActivityIndicatorView alloc] initWithFrame:frame]];
+	[[self activityIndicator] sizeToFit];
+	[[self activityIndicator] setAutoresizingMask:
+		(UIViewAutoresizingFlexibleLeftMargin	|
+		 UIViewAutoresizingFlexibleRightMargin	|
+		 UIViewAutoresizingFlexibleTopMargin	|
+		 UIViewAutoresizingFlexibleBottomMargin)];
+	
+	UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView: [self activityIndicator]];
+	[loadingView setTarget: self];
+	[[self navigationItem] setRightBarButtonItem: loadingView];
 	
 }
 
 - (void)login:(id)sender {
 
+	[loginButton setEnabled: NO];
+	
+	// start loading animation
+	[activityIndicator startAnimating];
+	
+	RTKApiKeyRequest *request = [RTKApiKeyRequest get:[userNameTextField text] withPassword:[passwordTextField text]];
+	
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(requestFinished:)];
+	[request startAsynchronous];
+	
+}
+
+- (void)autoLogin {
+	[loginButton setEnabled: NO];
+	[activityIndicator startAnimating];
+	
+	usleep(5000000);
+	[loginButton setEnabled: YES];
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+	RTKApiKeyRequest *apiRequest = (RTKApiKeyRequest *)request;
+	
+	[activityIndicator stopAnimating];
+	// restore state
+	[loginButton setEnabled: YES];
+	
+	// get the api key response
+	RTKApiKey *response = (RTKApiKey *)[apiRequest object];
+	if (response && ([response apiKey])) {
+		// got a new api key, add to preferences
+		[manager setStringPreferenceForKey:kRTKPreferencesApiKey withValue: [response apiKey]];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"." message:[[request object] apiKey] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	} else {
+		// assume we got an error
+		RTKApiError *apiError = (RTKApiError *)[response error];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[apiError message] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
+
+	
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+	RTKApiKeyRequest *apiRequest = (RTKApiKeyRequest *)request;
+	
+	
+	NSError *error = [apiRequest error];
+	
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Communication Error" message:[error description] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+	
+	[activityIndicator stopAnimating];
+	// restore state
+	[loginButton setEnabled: YES];
 	
 }
 
@@ -64,6 +130,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+#pragma mark Table Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -77,7 +145,7 @@
     switch ([indexPath row]) {
 		case 0:
             if (indexPath.section == 0) {
-                [userNameTextField setText: [manager getStringPreference: kRTKPreferencesUsername]];
+                [userNameTextField setText: [manager getStringPreferenceForKey: kRTKPreferencesUsername]];
                 [userNameTextField setClearButtonMode: UITextFieldViewModeWhileEditing];
                 return userNameTableViewCell;
             }
@@ -111,12 +179,10 @@
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
+
 
 @synthesize manager;
-//@synthesize activityIndicator;
+@synthesize activityIndicator;
 
 
 @end

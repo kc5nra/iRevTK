@@ -33,7 +33,6 @@ static NSString *sharedApiKey = nil;
 - (void)dealloc
 {
 	[error release];
-	
 	[super dealloc];
 }
 
@@ -60,6 +59,8 @@ static NSString *sharedApiKey = nil;
 	
 	[responseObject release];
 	[jsonParser release];
+	
+	[super requestFinished];
 }
 
 
