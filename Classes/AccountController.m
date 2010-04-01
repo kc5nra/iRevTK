@@ -12,7 +12,6 @@
 #import "RTKApiKey.h"
 #import "RTKApiKeyRequest.h"
 #import "ASIHTTPRequest.h"
-#import "RootController.h"
 #import "RevTKDelegate.h"
 
 @implementation AccountController
