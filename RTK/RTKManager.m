@@ -9,10 +9,21 @@
 #import "RTKManager.h"
 #import "RevTKDelegate.h"
 #import "RTKApiRequest.h"
+#import "RTKBoxes.h"
+#import "RTKSimpleBox.h"
+#import "RTKBoxesRequest.h"
 
-NSString* const kRTKPreferencesUsername		= @"username";
-NSString* const kRTKPreferencesApiKey		= @"apiKey";
-NSString* const kRTKPreferencesAutoLogin	= @"autoLogin";
+
+NSString * const kRTKPreferencesUsername				= @"username";
+NSString * const kRTKPreferencesApiKey					= @"apiKey";
+NSString * const kRTKPreferencesAutoLogin				= @"autoLogin";
+NSString * const kRTKNotificationBoxesDidUpdate			= @"kRTKNotificationBoxesDidUpdate";
+NSString * const kRTKNotificationNewsStoriesDidUpdate	= @"kRTKNotificationNewsStoriesDidUpdate";
+
+@interface RTKManager (Private)
+- (void)addAsyncOperation:(SEL)anOperation withArg:(id)anArg;
+- (void)asyncUpdateBoxes:(id)arg;
+@end
 
 @implementation RTKManager
 
@@ -47,6 +58,8 @@ static RTKManager *sharedManager;
 	if (![self networkQueue]) {
 		[self setNetworkQueue:[[NSOperationQueue alloc] init]];
 	}
+	
+	sharedApplication = [RevTKDelegate sharedRevTKApplication];
 	
 	NSString *apiKey = [preferences stringForKey: kRTKPreferencesApiKey];
 	
@@ -104,25 +117,41 @@ static RTKManager *sharedManager;
 	return YES;
 }
 
-- (void)pushAsyncApiRequest:(RTKApiRequest *)request 
+#pragma mark Asynchronous Methods
+
+- (void)addAsyncOperation:(SEL)anOperation withArg:(id)anArg 
 {
-	[request setDidFailSelector: @selector(requestFailed:)];
-	[request setDidFinishSelector: @selector(requestFinished:)];
-	[request setDelegate: self];
+    if (![self respondsToSelector:anOperation]) {
+        return;
+    }
 	
-	[[self networkQueue] addOperation: request];
+    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:anOperation object:anArg];
+    [networkQueue addOperation:op];
+    [op release];
 }
 
-- (void)requestFailed:(ASIHTTPRequest *)request
+- (void)addUpdateBoxesToQueue
+{
+	[self addAsyncOperation:@selector(asyncUpdateBoxes:) withArg:nil];
+	
+}
+
+-(void)asyncUpdateBoxes:(id)arg
 {
 
+	// if we had the api key, go ahead and update the current expired flashcards badge
+	// TODO: push a async request to the manager and have it use NSNotification's to tell the view to update the badge
+	RTKBoxesRequest *request = [RTKBoxesRequest get];	
+	[request startSynchronous];
+	RTKBoxes *_boxes = (RTKBoxes *)[request object];
+	[self setBoxes: _boxes];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName: kRTKNotificationBoxesDidUpdate object:nil];
 }
 
-- (void)requestFinished:(ASIHTTPRequest *)request
-{
-
-}
+#pragma mark Synthesized Properties
 
 @synthesize networkQueue;
+@synthesize boxes;
 
 @end

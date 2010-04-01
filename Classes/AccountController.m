@@ -58,6 +58,7 @@
 
 - (void)login:(id)sender {
 
+		
 	[loginButton setEnabled: NO];
 	
 	// start loading animation
@@ -68,8 +69,6 @@
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(requestFinished:)];
 	[request startAsynchronous];
-	[request release];
-	
 }
 
 - (void)autoLogin {
@@ -105,6 +104,7 @@
 		[alert release];
 	}
 	[response release];
+	[request release];
 
 	
 }

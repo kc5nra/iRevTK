@@ -8,6 +8,7 @@
 
 #import "RTKResponseObject.h"
 #import "RTK.h"
+#import "RTKUtils.h"
 #import "RTKApiError.h"
 #import "RTKApiRequest.h"
 
@@ -83,7 +84,7 @@
 	// api error structure
 	// { error: { :message, :statusCode } }
 	[apiError setMessage: [errorDictionary valueForKey: @"message"]];
-	[apiError setStatusCode: [RTKApiRequest getJsonIntegerFromDictionary:errorDictionary withKey:@"statusCode"]];
+	[apiError setStatusCode: [RTKUtils getJsonIntegerFromDictionary:errorDictionary withKey:@"statusCode"]];
 	
 	return apiError;
 }

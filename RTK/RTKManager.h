@@ -8,21 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
+@class RevTKDelegate;
 @class RTKApiRequest;
 @class ASIHTTPRequest;
+@class RTKBoxes;
 
 extern NSString* const kRTKPreferencesUsername;
 extern NSString* const kRTKPreferencesApiKey;
 extern NSString* const kRTKPreferencesAutoLogin;
+extern NSString * const kRTKNotificationBoxesDidUpdate;
+extern NSString * const kRTKNotificationNewsStoriesDidUpdate;
 
 @interface RTKManager : NSObject {
 	NSUserDefaults		*preferences;
 	NSOperationQueue	*networkQueue;
 	
-//	NSManagedObjectModel *managedObjectModel;
-//    NSManagedObjectContext *managedObjectContext;	    
-//    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+	RevTKDelegate		*sharedApplication;
 	
+	RTKBoxes			*boxes;
 }
 
 - (BOOL)getBoolPreferenceForKey:(NSString *)key;
@@ -30,14 +33,12 @@ extern NSString* const kRTKPreferencesAutoLogin;
 - (void)setBoolPreferenceForKey:(NSString *)key withValue:(BOOL)value;
 - (void)setStringPreferenceForKey:(NSString *)key withValue:(NSString *)value;
 
-- (void)pushAsyncApiRequest:(RTKApiRequest *)request;
-- (void)requestFinished:(ASIHTTPRequest *)request;
-- (void)requestFailed:(ASIHTTPRequest *)request;
-
+- (void)addUpdateBoxesToQueue;
 
 
 + (RTKManager *)sharedManager;
 
 @property (retain) NSOperationQueue *networkQueue;
+@property (retain) RTKBoxes *boxes;
 
 @end

@@ -63,7 +63,7 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">Shoebox.png</string>
 						</object>
-						<string key="IBUIBadgeValue">62</string>
+						<string key="IBUIBadgeValue"/>
 						<reference key="IBUITabBar"/>
 					</object>
 					<reference key="IBUIParentViewController" ref="364779991"/>
@@ -79,7 +79,7 @@
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">News.png</string>
 							</object>
-							<string key="IBUIBadgeValue">2</string>
+							<string key="IBUIBadgeValue"/>
 							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="364779991"/>

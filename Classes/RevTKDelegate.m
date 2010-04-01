@@ -7,11 +7,22 @@
 //
 
 #import "RevTKDelegate.h"
-#import "RootController.h"
 #import "RTKNewsRequest.h"
 #import "RTKNewsStories.h"
+#import "RTKBoxesRequest.h"
+#import "RTKBoxes.h"
+#import "RTKSimpleBox.h"
 #import "RTKManager.h"
 #import "AccountController.h"
+
+int const kRTKTabBarReviewIndex = 1;
+
+@interface RevTKDelegate (Private)
+
+- (void)badgeValuesDidUpdate:(id)notification;
+
+@end
+
 
 @implementation RevTKDelegate
 
@@ -41,6 +52,9 @@ static RevTKDelegate *rtkApp = NULL;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(badgeValuesDidUpdate:) name:kRTKNotificationBoxesDidUpdate object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(badgeValuesDidUpdate:) name:kRTKNotificationNewsStoriesDidUpdate object:nil];
+	
 	accountController = [[AccountController alloc] init];
 		
 	// make the tab controller the main view
@@ -51,10 +65,24 @@ static RevTKDelegate *rtkApp = NULL;
 	if (apiKey) {
 		[RTKApiRequest setApiKey: apiKey];
 		[apiKey release];
+		[manager addUpdateBoxesToQueue];
+		
 	} else {
 		[tabBarController presentModalViewController:accountController animated:NO];
 	}
+}
+
+- (void)badgeValuesDidUpdate:(id)notification {
+	RTKBoxes *boxes = [manager boxes];
 	
+	int newBadgeValue = [boxes untestedCount];
+	NSArray *_boxes = [boxes boxes];
+	for (RTKSimpleBox *box in _boxes)
+	{
+		newBadgeValue += [box expiredCards];
+	}
+	
+	[[[[tabBarController tabBar] items] objectAtIndex: kRTKTabBarReviewIndex] setBadgeValue: [NSString stringWithFormat:@"%d",newBadgeValue]];
 }
 
 
