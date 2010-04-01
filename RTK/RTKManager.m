@@ -113,12 +113,12 @@ static RTKManager *sharedManager;
 	[[self networkQueue] addOperation: request];
 }
 
-- (void)requestFailedProxy:(ASIHTTPRequest *)request
+- (void)requestFailed:(ASIHTTPRequest *)request
 {
 
 }
 
-- (void)requestFinishedProxy:(ASIHTTPRequest *)request
+- (void)requestFinished:(ASIHTTPRequest *)request
 {
 
 }

@@ -1,52 +1,54 @@
 //
-//  RootController.m
+//  RTKNewsViewController.m
 //  RevTK
 //
 //  Created by John Bradley on 3/29/10.
 //  Copyright J. Bradley & Associates, LLC 2010. All rights reserved.
 //
 
-#import "RootController.h"
+#import "RTKNewsViewController.h"
 #import "RevTKDelegate.h"
 #import "RTKNewsStory.h"
 #import "RTKApiKeyRequest.h"
 #import "RTKNewsStoryRequest.h"
+#import "RTKNewsStories.h"
+#import "RTKNewsRequest.h"
+#import "RTKNewsStoryTableViewCell.h"
+#import "RTKUtils.h"
 
-@implementation RootController
+@implementation RTKNewsViewController
 
-@synthesize tableView;
-
-- (IBAction)login:(id)sender {
-	//RTKApiKeyRequest *request = [RTKApiKeyRequest apiKeyRequestUsingGETMethodUsingUsername:@"admin" withPassword:@"admin"];
-//	[request startSynchronous];
-//	
-//	//NSString *apiKey = [request apiKey];
-//	
-//	[RTKApiRequest setApiKey: apiKey];
-	
-	//[apiKeyLabel setText: apiKey];
-	
-}
 
 #pragma mark UITableViewDataSource Methods
 
 - (UITableViewCell *)
-	tableView:(UITableView *)tv
-	cellForRowAtIndexPath:(NSIndexPath *)indexPath
+tableView:(UITableView *)tv
+cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell =
-	[ tv dequeueReusableCellWithIdentifier:@"cell"];
-    if( nil == cell ) {
-        cell = [ [[UITableViewCell alloc]
-				  initWithFrame:CGRectZero reuseIdentifier:@"cell"] autorelease];
+	
+	
+	static NSString *CellIdentifier = @"CommentCell";
+    RTKNewsStoryTableViewCell *cell = (RTKNewsStoryTableViewCell *)[newsTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	
+    if (cell == nil) {
+        cell = [[[RTKNewsStoryTableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
 	
-	RTKNewsStory *newsStory = [newsStories objectAtIndex: [indexPath row]];
-	[[cell textLabel] setText: [newsStory subject]];
-	[newsStory release];
+	
+	RTKNewsStory *story = [newsStories objectAtIndex: [indexPath row]];
+	
+	
+	
+	
+	
+	[cell setNewsStory: story];
+	
+	
+    // perform additional custom work...
 	
     return cell;
 }
+
 - (NSInteger)tableView:(UITableView *)tv
  numberOfRowsInSection:(NSInteger)section
 {
@@ -54,6 +56,7 @@
 }
 
 #pragma mark UITableViewDelegate Methods
+
 
 - (void)tableView:(UITableView *)tv
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,12 +76,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 	[request release];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return COMMENT_ROW_HEIGHT;
+}
+
 #pragma mark -
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
 	RevTKDelegate *delegate = (RevTKDelegate*)[[UIApplication sharedApplication] delegate];
-	newsStories = [delegate newsStories];
+	
+	RTKNewsRequest *request = [RTKNewsRequest get];
+	
+	[request startSynchronous];
+	
+	RTKNewsStories *newsStoryHolder = (RTKNewsStories *)[request object];
+	
+	newsStories = [newsStoryHolder newsStories];
+	
 	
     [super viewDidLoad];
 }
@@ -86,12 +101,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 
 /*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
+ // Override to allow orientations other than the default portrait orientation.
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ // Return YES for supported orientations
+ return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ }
+ */
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -109,9 +124,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)dealloc {
 	
 	[newsStories release];
-	[tableView release];
     [super dealloc];
 }
+
+@synthesize newsTableView;
 
 
 @end

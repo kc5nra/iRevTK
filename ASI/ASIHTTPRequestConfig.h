@@ -12,11 +12,13 @@
 // ======
 
 // When set to 1 ASIHTTPRequests will print information about what a request is doing
+#define DEBUG_REQUEST_STATUS 1
 #ifndef DEBUG_REQUEST_STATUS
 	#define DEBUG_REQUEST_STATUS 0
 #endif
 
 // When set to 1, ASIFormDataRequests will print information about the request body to the console
+#define DEBUG_FORM_DATA_REQUEST 1
 #ifndef DEBUG_FORM_DATA_REQUEST
 	#define DEBUG_FORM_DATA_REQUEST 0
 #endif

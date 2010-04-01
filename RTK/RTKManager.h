@@ -31,8 +31,8 @@ extern NSString* const kRTKPreferencesAutoLogin;
 - (void)setStringPreferenceForKey:(NSString *)key withValue:(NSString *)value;
 
 - (void)pushAsyncApiRequest:(RTKApiRequest *)request;
-- (void)requestFinishedProxy:(ASIHTTPRequest *)request;
-- (void)requestFailedProxy:(ASIHTTPRequest *)request;
+- (void)requestFinished:(ASIHTTPRequest *)request;
+- (void)requestFailed:(ASIHTTPRequest *)request;
 
 
 

@@ -48,6 +48,7 @@ static NSString *sharedApiKey = nil;
 - (void)requestFinished
 {
 	SBJSON *jsonParser = [SBJSON new];
+	NSString *responseString = [self responseString];
 	
 	NSDictionary *responseDictionary = [jsonParser objectWithString:[self responseString] error: NULL];
 	
@@ -83,16 +84,6 @@ static NSString *sharedApiKey = nil;
 	[sharedApiKey retain];
 }
 
-+ (int) getJsonIntegerFromDictionary:(NSDictionary*)dictionary withKey:(NSString*)key
-{
-	NSNumber* _int = [dictionary valueForKey:key];
-	return [_int integerValue];
-}
 
-+ (BOOL) getJsonBooleanFromDictionary:(NSDictionary*)dictionary withKey:(NSString*)key
-{
-	NSNumber* _int = [dictionary valueForKey:key];
-	return ([_int integerValue] == 1) ? TRUE : FALSE;
-}
 
 @end

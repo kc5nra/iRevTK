@@ -12,7 +12,8 @@
 #import "RTKApiKey.h"
 #import "RTKApiKeyRequest.h"
 #import "ASIHTTPRequest.h"
-
+#import "RootController.h"
+#import "RevTKDelegate.h"
 
 @implementation AccountController
 
@@ -38,21 +39,22 @@
 	[tableView setBackgroundColor: [UIColor clearColor]];
 	[[self view] setBackgroundColor: [UIColor colorWithPatternImage: [UIImage imageNamed: @"Background.gif"]]];
 	manager = [RTKManager sharedManager];
-	
-	// Create a 'right hand button' that is a activity Indicator
-	CGRect frame = CGRectMake(0.0, 0.0, 25.0, 25.0);
-	[self setActivityIndicator: [[UIActivityIndicatorView alloc] initWithFrame:frame]];
-	[[self activityIndicator] sizeToFit];
-	[[self activityIndicator] setAutoresizingMask:
-		(UIViewAutoresizingFlexibleLeftMargin	|
-		 UIViewAutoresizingFlexibleRightMargin	|
-		 UIViewAutoresizingFlexibleTopMargin	|
-		 UIViewAutoresizingFlexibleBottomMargin)];
-	
-	UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView: [self activityIndicator]];
-	[loadingView setTarget: self];
-	[[self navigationItem] setRightBarButtonItem: loadingView];
-	
+//	
+//	// Create a 'right hand button' that is a activity Indicator
+//	CGRect frame = CGRectMake(0.0, 0.0, 25.0, 25.0);
+//	[self setActivityIndicator: [[UIActivityIndicatorView alloc] initWithFrame:frame]];
+//	[[self activityIndicator] sizeToFit];
+//	[[self activityIndicator] setAutoresizingMask:
+//		(UIViewAutoresizingFlexibleLeftMargin	|
+//		 UIViewAutoresizingFlexibleRightMargin	|
+//		 UIViewAutoresizingFlexibleTopMargin	|
+//		 UIViewAutoresizingFlexibleBottomMargin)];
+//	
+//	UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView: [self activityIndicator]];
+//	[loadingView setTarget: self];
+//	[[self navigationItem] setRightBarButtonItem: loadingView];
+//	[[self navigationController] setTitle: @"Login"];
+//	[[self navigationItem] setTitle: @"Login"];
 }
 
 - (void)login:(id)sender {
@@ -67,12 +69,13 @@
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(requestFinished:)];
 	[request startAsynchronous];
+	[request release];
 	
 }
 
 - (void)autoLogin {
 	[loginButton setEnabled: NO];
-	[activityIndicator startAnimating];
+	//[activityIndicator startAnimating];
 	
 	usleep(5000000);
 	[loginButton setEnabled: YES];
@@ -82,7 +85,7 @@
 {
 	RTKApiKeyRequest *apiRequest = (RTKApiKeyRequest *)request;
 	
-	[activityIndicator stopAnimating];
+	//[activityIndicator stopAnimating];
 	// restore state
 	[loginButton setEnabled: YES];
 	
@@ -91,9 +94,10 @@
 	if (response && ([response apiKey])) {
 		// got a new api key, add to preferences
 		[manager setStringPreferenceForKey:kRTKPreferencesApiKey withValue: [response apiKey]];
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"." message:[[request object] apiKey] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+		
+		[self dismissModalViewControllerAnimated: YES];
+		//RootController *rootController = [[[RootController alloc] initWithNibName:@"RootController" bundle:nil] autorelease];
+		//[[self navigationController] pushViewController: rootController animated: YES];
 	} else {
 		// assume we got an error
 		RTKApiError *apiError = (RTKApiError *)[response error];
@@ -101,6 +105,7 @@
 		[alert show];
 		[alert release];
 	}
+	[response release];
 
 	
 }

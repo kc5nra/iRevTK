@@ -9,10 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @class RTKManager;
+@class AccountController;
+@class RootController;
 
-@interface RevTKDelegate : NSObject <UIApplicationDelegate> {
-    IBOutlet UIWindow				*window;
-	IBOutlet UINavigationController *navigationController;
+@interface RevTKDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
+    
+	IBOutlet AccountController		*accountController;
+
+	IBOutlet UIWindow				*window;
+	IBOutlet UITabBarController		*tabBarController;
 	
 	BOOL alertDialogRunning;
 	RTKManager *manager;
@@ -20,9 +25,8 @@
 
 + (RevTKDelegate *)sharedRevTKApplication;
 
-
-@property (nonatomic, retain) IBOutlet	UIWindow				*window;
-@property (nonatomic, retain) IBOutlet	UINavigationController	*navigationController;
+@property (nonatomic, retain) IBOutlet UITabBarController		*tabBarController;
+@property (nonatomic, retain) IBOutlet UIWindow					*window;
 @property (nonatomic)					BOOL					alertDialogRunning;
 
 @end

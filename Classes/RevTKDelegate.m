@@ -18,7 +18,6 @@
 static RevTKDelegate *rtkApp = NULL;
 
 @synthesize window;
-@synthesize navigationController;
 @synthesize alertDialogRunning;
 
 - (id)init 
@@ -42,23 +41,30 @@ static RevTKDelegate *rtkApp = NULL;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     
-	AccountController *accountController = [[AccountController alloc] init];
-	UINavigationController *aNavigationController = [[UINavigationController alloc] initWithRootViewController: accountController];
-	[self setNavigationController: aNavigationController];
+	accountController = [[AccountController alloc] init];
+		
+	// make the tab controller the main view
+    [window addSubview: [tabBarController view]];
 	
-    // Override point for customization after app launch    
-    [window addSubview: [navigationController view]];
-    [window makeKeyAndVisible];
+	// if we already have an apiKey stored in our preferences, skip the login screen and set it to the request
+	NSString *apiKey = [manager getStringPreferenceForKey: kRTKPreferencesApiKey];
+	if (apiKey) {
+		[RTKApiRequest setApiKey: apiKey];
+		[apiKey release];
+	} else {
+		[tabBarController presentModalViewController:accountController animated:NO];
+	}
 	
-	[accountController release];
 }
 
 
 - (void)dealloc {
-    [navigationController release];
+    [accountController release];
+	[tabBarController release];
     [window release];
     [super dealloc];
 }
 
+@synthesize tabBarController;
 
 @end

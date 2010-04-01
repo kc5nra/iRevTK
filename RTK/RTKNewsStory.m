@@ -7,7 +7,7 @@
 //
 
 #import "RTK.h"
-#import "RTKApiRequest.h"
+#import "RTKUtils.h"
 #import "RTKNewsStory.h"
 
 
@@ -23,15 +23,15 @@
 {
 	NSDictionary *story = (NSDictionary *)responseObject;
 	
-	[self setNewsId: [RTKApiRequest getJsonIntegerFromDictionary: story withKey:@"id"]];
+	[self setNewsId: [RTKUtils getJsonIntegerFromDictionary: story withKey:@"id"]];
 	[self setSubject: [story valueForKey:@"subject"]];
 	[self setText: [story valueForKey: @"text"]];
 	[self setDate: [story valueForKey: @"date"]];
-	[self setBrief: [RTKApiRequest getJsonBooleanFromDictionary: story withKey:@"brief"]];
+	[self setBrief: [RTKUtils getJsonBooleanFromDictionary: story withKey:@"brief"]];
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat: @"RTKNewsStory { id=%d, subject='%@', text='...', date='%@', brief=%@", newsId, subject, date, RTKBoolStr(brief)];
+	return [NSString stringWithFormat: @"RTKNewsStory { id=%d, subject='%@', text='...', date='%@', brief=%@ }", newsId, subject, date, RTKBoolStr(brief)];
 }
 
 - (void)dealloc
