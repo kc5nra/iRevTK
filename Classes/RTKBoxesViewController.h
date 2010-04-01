@@ -10,7 +10,7 @@
 
 
 @interface RTKBoxesViewController : UIViewController {
-
+	IBOutlet UIView *myView;
 }
 
 @end

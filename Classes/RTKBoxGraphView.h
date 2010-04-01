@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class RTKSimpleBox;
 
 @interface RTKBoxGraphView : UIView {
-
+	RTKSimpleBox *simpleBox;
 }
 
+@property (retain) RTKSimpleBox *simpleBox;
 @end

@@ -94,7 +94,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 	
 	newsStories = [newsStoryHolder newsStories];
 	
-	
     [super viewDidLoad];
 }
 
