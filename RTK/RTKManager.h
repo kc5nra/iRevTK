@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @class RevTKDelegate;
 @class RTKApiRequest;
@@ -22,6 +23,10 @@ extern NSString * const kRTKNotificationNewsStoriesDidUpdate;
 @interface RTKManager : NSObject {
 	NSUserDefaults		*preferences;
 	NSOperationQueue	*networkQueue;
+	
+	NSManagedObjectModel			*managedObjectModel;
+    NSManagedObjectContext			*managedObjectContext;	    
+    NSPersistentStoreCoordinator	*persistentStoreCoordinator;
 	
 	RevTKDelegate		*sharedApplication;
 	
@@ -40,5 +45,10 @@ extern NSString * const kRTKNotificationNewsStoriesDidUpdate;
 
 @property (retain) NSOperationQueue *networkQueue;
 @property (retain) RTKBoxes *boxes;
+
+@property (nonatomic, retain, readonly) NSManagedObjectModel			*managedObjectModel;
+@property (nonatomic, retain, readonly) NSManagedObjectContext			*managedObjectContext;
+@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator	*persistentStoreCoordinator;
+
 
 @end
