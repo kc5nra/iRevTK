@@ -27,7 +27,7 @@
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat: @"RTKNewsStory { id=%d, expiredCards='%d', freshCards='%d', totalCards='%d' }", boxId, expiredCards, freshCards, totalCards];
+	return [NSString stringWithFormat: @"RTKSimpleBox { id=%d, expiredCards='%d', freshCards='%d', totalCards='%d' }", boxId, expiredCards, freshCards, totalCards];
 }
 
 - (void)dealloc

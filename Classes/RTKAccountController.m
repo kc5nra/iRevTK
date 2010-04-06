@@ -78,9 +78,12 @@
 		// got a new api key, add to preferences
 		[manager setStringPreferenceForKey:kRTKPreferencesApiKey withValue: [response apiKey]];
 		
+		// update the users box count
+		[manager addUpdateBoxesToQueue];
+		
+		// pop this view and return to the previous view controller
 		[self dismissModalViewControllerAnimated: YES];
-		//RootController *rootController = [[[RootController alloc] initWithNibName:@"RootController" bundle:nil] autorelease];
-		//[[self navigationController] pushViewController: rootController animated: YES];
+		
 	} else {
 		// assume we got an error
 		RTKApiError *apiError = (RTKApiError *)[response error];
@@ -88,10 +91,9 @@
 		[alert show];
 		[alert release];
 	}
+	
 	[response release];
 	[request release];
-
-	
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request

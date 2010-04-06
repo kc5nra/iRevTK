@@ -84,6 +84,8 @@
 	} else {
 		[NSFetchedResultsController deleteCacheWithName:nil];  
 		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(kanji like[cd] %@) OR (heisigNumber == %@) OR (keyword BEGINSWITH[cd] %@)", searchText, searchText, searchText];
+	
+		
 		[[fetchedResultsController fetchRequest] setPredicate: predicate];
 	}
 	
@@ -221,7 +223,7 @@
 	[fetchRequest setEntity:entity];
 	
 	// Set the batch size to a suitable number.
-	[fetchRequest setFetchBatchSize:3007];
+	[fetchRequest setFetchBatchSize:20];
 	
 	
 	// Edit the sort key as appropriate.

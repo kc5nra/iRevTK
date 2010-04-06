@@ -82,6 +82,10 @@ static RevTKDelegate *rtkApp = NULL;
 		newBadgeValue += [box expiredCards];
 	}
 	
+	if (newBadgeValue <= 0) {
+		[[[[tabBarController tabBar] items] objectAtIndex: kRTKTabBarReviewIndex] setBadgeValue: nil];
+	}
+	
 	[[[[tabBarController tabBar] items] objectAtIndex: kRTKTabBarReviewIndex] setBadgeValue: [NSString stringWithFormat:@"%d",newBadgeValue]];
 }
 

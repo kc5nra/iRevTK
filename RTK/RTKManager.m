@@ -21,6 +21,7 @@
 NSString * const kRTKPreferencesUsername				= @"username";
 NSString * const kRTKPreferencesApiKey					= @"apiKey";
 NSString * const kRTKPreferencesAutoLogin				= @"autoLogin";
+NSString * const kRTKInternalIsKanjiDatabaseBuiltKey	= @"isKanjiDatabaseBuilt";
 NSString * const kRTKNotificationBoxesDidUpdate			= @"kRTKNotificationBoxesDidUpdate";
 NSString * const kRTKNotificationNewsStoriesDidUpdate	= @"kRTKNotificationNewsStoriesDidUpdate";
 NSString * const kRTKCoreDataDatabaseName				= @"RTK.sqlite";
@@ -78,7 +79,7 @@ static RTKManager *sharedManager;
 	
 	managedObjectContext = [self managedObjectContext];
 	
-	[self preloadKanjiData];
+	//[self preloadKanjiData];
 	
 	return self;
 }
@@ -155,6 +156,7 @@ static RTKManager *sharedManager;
 	[request startSynchronous];
 	RTKBoxes *_boxes = (RTKBoxes *)[request object];
 	[self setBoxes: _boxes];
+	RTKLog(@"Response: %@", _boxes);
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName: kRTKNotificationBoxesDidUpdate object:nil];
 }

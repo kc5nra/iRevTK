@@ -29,8 +29,23 @@
 		}		
 	}
 	
+	NSSortDescriptor *idSorter = [[NSSortDescriptor alloc] initWithKey:@"boxId" ascending:YES];
+	[_boxes sortUsingDescriptors: [NSArray arrayWithObject: idSorter]];
+	
 	[self setBoxes: _boxes];
 	[_boxes release];
+}
+
+- (NSString *)description {
+	NSMutableString *description = [[NSMutableString alloc] init];
+	[description appendString: @"\nRTKBoxes { "];
+	for (RTKSimpleBox *simpleBox in boxes) {
+		[description appendString: @"\n\t"];
+		[description appendString: [simpleBox description]];
+	}
+	[description appendString: @"\n}"];
+	
+	return description;
 }
 
 - (void)dealloc

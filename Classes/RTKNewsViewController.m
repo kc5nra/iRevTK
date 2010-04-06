@@ -60,25 +60,19 @@ cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)tableView:(UITableView *)tv
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	RTKNewsStory *briefStory = [newsStories objectAtIndex: [indexPath row]];
-	
-	RTKNewsStoryRequest *request = [RTKNewsStoryRequest get: [briefStory newsId]];
-	
-	[request startSynchronous];
-	
-	RTKNewsStory *story = (RTKNewsStory *)[request object];
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle: [story subject] message: [story text] delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-	[alert show];
-	[alert release];
-	[story release];
-	[request release];
+{	
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://kanji.koohii.com"]];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return COMMENT_ROW_HEIGHT;
 }
+
+- (UITableViewCellAccessoryType)tableView:(UITableView *)tv accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+	return UITableViewCellAccessoryDisclosureIndicator;
+}
+
 
 #pragma mark -
 
