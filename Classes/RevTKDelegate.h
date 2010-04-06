@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class RTKManager;
-@class AccountController;
+@class RTKAccountController;
 @class RootController;
 
 @interface RevTKDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     
-	IBOutlet AccountController		*accountController;
+	IBOutlet RTKAccountController		*accountController;
 
 	IBOutlet UIWindow				*window;
 	IBOutlet UITabBarController		*tabBarController;

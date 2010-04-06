@@ -40,6 +40,10 @@ extern NSString * const kRTKNotificationNewsStoriesDidUpdate;
 
 - (void)addUpdateBoxesToQueue;
 
+- (NSString *)applicationDocumentsDirectory;
+
+- (void)deleteAllObjects: (NSString *) entityDescription;
+- (void)preloadKanjiData ;
 
 + (RTKManager *)sharedManager;
 

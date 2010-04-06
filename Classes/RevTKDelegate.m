@@ -13,7 +13,7 @@
 #import "RTKBoxes.h"
 #import "RTKSimpleBox.h"
 #import "RTKManager.h"
-#import "AccountController.h"
+#import "RTKAccountController.h"
 
 int const kRTKTabBarReviewIndex = 1;
 
@@ -55,7 +55,7 @@ static RevTKDelegate *rtkApp = NULL;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(badgeValuesDidUpdate:) name:kRTKNotificationBoxesDidUpdate object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(badgeValuesDidUpdate:) name:kRTKNotificationNewsStoriesDidUpdate object:nil];
 	
-	accountController = [[AccountController alloc] init];
+	accountController = [[RTKAccountController alloc] init];
 		
 	// make the tab controller the main view
     [window addSubview: [tabBarController view]];

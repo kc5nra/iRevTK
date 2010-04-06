@@ -1,5 +1,5 @@
 //
-//  EditAccountController.h
+//  RTKAccountController.h
 //  RevTK
 //
 //  Created by John Bradley on 3/30/10.
@@ -11,7 +11,7 @@
 @class RTKManager;
 @class ASIHTTPRequest;
 
-@interface AccountController : UIViewController<UITextFieldDelegate> {
+@interface RTKAccountController : UIViewController<UITextFieldDelegate> {
 	
 	IBOutlet UITableView		*tableView;
 	

@@ -1,12 +1,12 @@
 //
-//  EditAccountController.m
+//  RTKAccountController.m
 //  RevTK
 //
 //  Created by John Bradley on 3/30/10.
 //  Copyright 2010 J. Bradley & Associates, LLC. All rights reserved.
 //
 
-#import "AccountController.h"
+#import "RTKAccountController.h"
 #import "RTK.h"
 #import "RTKManager.h"
 #import "RTKApiKey.h"
@@ -14,7 +14,7 @@
 #import "ASIHTTPRequest.h"
 #import "RevTKDelegate.h"
 
-@implementation AccountController
+@implementation RTKAccountController
 
 
 /*
@@ -33,27 +33,12 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-    [super viewDidLoad];
-	
+    manager = [RTKManager sharedManager];
+
 	[tableView setBackgroundColor: [UIColor clearColor]];
 	[[self view] setBackgroundColor: [UIColor colorWithPatternImage: [UIImage imageNamed: @"Background.gif"]]];
-	manager = [RTKManager sharedManager];
-//	
-//	// Create a 'right hand button' that is a activity Indicator
-//	CGRect frame = CGRectMake(0.0, 0.0, 25.0, 25.0);
-//	[self setActivityIndicator: [[UIActivityIndicatorView alloc] initWithFrame:frame]];
-//	[[self activityIndicator] sizeToFit];
-//	[[self activityIndicator] setAutoresizingMask:
-//		(UIViewAutoresizingFlexibleLeftMargin	|
-//		 UIViewAutoresizingFlexibleRightMargin	|
-//		 UIViewAutoresizingFlexibleTopMargin	|
-//		 UIViewAutoresizingFlexibleBottomMargin)];
-//	
-//	UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView: [self activityIndicator]];
-//	[loadingView setTarget: self];
-//	[[self navigationItem] setRightBarButtonItem: loadingView];
-//	[[self navigationController] setTitle: @"Login"];
-//	[[self navigationItem] setTitle: @"Login"];
+
+	[super viewDidLoad];
 }
 
 - (void)login:(id)sender {
