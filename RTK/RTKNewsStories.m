@@ -6,13 +6,15 @@
 //  Copyright 2010 J. Bradley & Associates, LLC. All rights reserved.
 //
 
+// RevTK Specific Imports
 #import "RTKNewsStories.h"
 #import "RTKNewsStory.h"
 
 
 @implementation RTKNewsStories
 
-@synthesize newsStories;
+#pragma mark -
+#pragma mark RTKResponseObject Methods
 
 - (void)parseResponse: (id) responseObject {
 	
@@ -28,11 +30,19 @@
 	[_newsStories release];
 }
 
+#pragma mark -
+#pragma mark NSObject Methods
+
 - (void)dealloc
 {
 	[newsStories release];
 	
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Synthesized Properties
+
+@synthesize newsStories;
 
 @end

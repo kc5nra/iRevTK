@@ -6,6 +6,7 @@
 //  Copyright 2010 J. Bradley & Associates, LLC. All rights reserved.
 //
 
+// RevTK Specific Imports
 #import "RTK.h"
 #import "RTKUtils.h"
 #import "RTKNewsStory.h"
@@ -13,11 +14,8 @@
 
 @implementation RTKNewsStory
 
-@synthesize newsId;
-@synthesize subject;
-@synthesize text;
-@synthesize date;
-@synthesize brief;
+#pragma mark -
+#pragma mark RTKResponseObject Methods
 
 - (void)parseResponse: (id)responseObject
 {
@@ -30,6 +28,9 @@
 	[self setBrief: [RTKUtils getJsonBooleanFromDictionary: story withKey:@"brief"]];
 }
 
+#pragma mark -
+#pragma mark NSObject Methods
+
 - (NSString *)description {
 	return [NSString stringWithFormat: @"RTKNewsStory { id=%d, subject='%@', text='...', date='%@', brief=%@ }", newsId, subject, date, RTKBoolStr(brief)];
 }
@@ -41,5 +42,14 @@
 	[date release];
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Synthesized Properties
+
+@synthesize newsId;
+@synthesize subject;
+@synthesize text;
+@synthesize date;
+@synthesize brief;
 
 @end

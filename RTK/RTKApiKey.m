@@ -11,11 +11,15 @@
 
 @implementation RTKApiKey
 
-@synthesize apiKey;
+#pragma mark -
+#pragma mark RTKResponseObject Methods
 
 - (void)parseResponse: (id) responseObject {
 	[self setApiKey: (NSString *)responseObject];
 }
+
+#pragma mark -
+#pragma mark NSObject Methods
 
 - (NSString *)description {
 	return [NSString stringWithFormat: @"RTKApiKey { apiKey='%@' }", apiKey];
@@ -27,5 +31,10 @@
 	
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Synthesized Properties
+
+@synthesize apiKey;
 
 @end

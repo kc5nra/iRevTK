@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-// RevTK Specific Imports
+// Third Party Imports
 #import "ASIHTTPRequest.h"
+
 
 /**
  The string constant that is used to create the URL for all RTK Api requests.
