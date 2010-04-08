@@ -8,22 +8,21 @@
 
 #import "RTKUtils.h"
 
-
 @implementation RTKUtils
 
 + (NSString *)convertIntervalToString: (NSTimeInterval)interval
 {
-	// The time interval 
+	// the time interval 
 	NSTimeInterval theTimeInterval = interval;
 	
-	// Get the system calendar
+	// get the system calendar
 	NSCalendar *sysCalendar = [NSCalendar currentCalendar];
 	
-	// Create the NSDates
+	// create the NSDates
 	NSDate *date1 = [[NSDate alloc] init];
 	NSDate *date2 = [[NSDate alloc] initWithTimeIntervalSinceNow: fabs(theTimeInterval)]; 
 	
-	// Get conversion to months, days, hours, minutes
+	// get conversion to months, days, hours, minutes
 	unsigned int unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit;
 	
 	NSDateComponents *breakdownInfo = [sysCalendar components:unitFlags fromDate:date1  toDate:date2  options:0];
@@ -32,6 +31,9 @@
 	int hours = [breakdownInfo hour];
 	int days = [breakdownInfo day];
 	int months = [breakdownInfo month];
+	
+	// return the string representation from broken down time
+	// FIXME: come up with a more accurate method of doing this
 	
 	if ((minutes >= 0) && ((hours+days+months) == 0)) {
 		if (minutes == 1) {

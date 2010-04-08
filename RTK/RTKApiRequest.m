@@ -17,10 +17,31 @@ NSString* const kRTKApiRequestApiKeyHeader	= @"revtk-api-key";
 
 static NSString *sharedApiKey = nil;
 
+/*
+ Private methods that should only be called by subclasses of this class.
+ */
+@interface RTKApiRequest (Private)
+
+/**
+ Builds the request headers for a request before it is executed.  Usually this step
+ only involved adding the revtk-api-key header used in requests requiring authentication.
+ */
+- (void)buildRequestHeaders;
+
+/**
+ A callback for when the request has finished and executes any required actions
+ before saving away the JSON response and creating the response object.
+ */
+- (void)requestFinished;
+
+@end
+
+#pragma mark -
 
 @implementation RTKApiRequest
 
-@synthesize object;
+#pragma mark -
+#pragma mark Public methods
 
 - (id)initWithURL:(NSURL *)newURL
 {
@@ -29,12 +50,15 @@ static NSString *sharedApiKey = nil;
 	return self;
 }
 
-
-- (void)dealloc
+- (id) createResponseObjectInstance 
 {
-	[error release];
-	[super dealloc];
+	RTKLog(@"This class is not meant to be used directly, please overload this method.");
+	[self doesNotRecognizeSelector: _cmd];
+	return nil;
 }
+
+#pragma mark -
+#pragma mark Private methods
 
 - (void)buildRequestHeaders
 {
@@ -48,12 +72,17 @@ static NSString *sharedApiKey = nil;
 - (void)requestFinished
 {
 	SBJSON *jsonParser = [SBJSON new];
+	
+	// [self responseString] does NOT retain the pointer, no need to free
 	NSString *responseString = [self responseString];
 	
-	NSDictionary *responseDictionary = [jsonParser objectWithString:[self responseString] error: NULL];
+	// dictionary is freed with jsonParser
+	NSDictionary *responseDictionary = [jsonParser objectWithString:responseString error: NULL];
 	
+	// create the response instance 
 	RTKResponseObject *responseObject = [self createResponseObjectInstance];
 	
+	// initialize response object data from the response json
 	[responseObject initWithResponseDictionary: responseDictionary];
 
 	[self setObject: responseObject];
@@ -64,14 +93,17 @@ static NSString *sharedApiKey = nil;
 	[super requestFinished];
 }
 
+#pragma mark -
+#pragma mark NSObject Methods
 
-- (id) createResponseObjectInstance 
+- (void)dealloc
 {
-	RTKLog(@"This class is not meant to be used directly, please overload this method.");
-	[self doesNotRecognizeSelector: _cmd];
-	return nil;
+	[error release];
+	[super dealloc];
 }
 
+
+#pragma mark -
 #pragma mark Static Methods
 
 + (NSString *)apiKey {
@@ -84,6 +116,9 @@ static NSString *sharedApiKey = nil;
 	[sharedApiKey retain];
 }
 
+#pragma mark -
+#pragma mark Synthesized Properties
 
+@synthesize object;
 
 @end

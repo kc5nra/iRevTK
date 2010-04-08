@@ -63,18 +63,7 @@
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-	
-//	NSCharacterSet *cs = [NSCharacterSet characterSetWithCharactersInString:RTK_LEGAL_CHARACTERS];
-//	NSString *string = [[text componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-//	RTKLog(@"%@", text);
-//	RTKLog(@"%@", string);
-//	if([text isEqualToString:string])
-//	{
-//		UIAlertView *balert = [[UIAlertView alloc] initWithTitle:@"" message:@"Only arabic alphabets are allowed ! Please reset your keyboard to arabic" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-//		[balert show];
-//	}
-//	return (![text isEqualToString:string]);
-	
+	return YES;
 }
 
 - (void)performFetchAndUpdateTable:(UISearchBar *)searchBar {

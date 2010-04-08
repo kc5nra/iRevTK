@@ -11,8 +11,8 @@
 
 @implementation RTKApiError
 
-@synthesize message;
-@synthesize statusCode;
+#pragma mark -
+#pragma mark NSObject Methods
 
 - (void)dealloc {
 	[message release];
@@ -23,5 +23,11 @@
 - (NSString *)description {
 	return [NSString stringWithFormat: @"RTKApiError { message='%@' statusCode=%de }", message, statusCode];
 }
+
+#pragma mark -
+#pragma mark Synthesized Properties
+
+@synthesize message;
+@synthesize statusCode;
 
 @end

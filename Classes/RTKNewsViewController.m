@@ -78,8 +78,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-	RevTKDelegate *delegate = (RevTKDelegate*)[[UIApplication sharedApplication] delegate];
-	
+
 	RTKNewsRequest *request = [RTKNewsRequest get];
 	
 	[request startSynchronous];
