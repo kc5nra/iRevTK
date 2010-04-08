@@ -18,10 +18,6 @@
 	NSManagedObjectContext *managedObjectContext;
 }
 
-- (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section;
-- (void)controllerWillChangeContent:(NSFetchedResultsController*)controller;
-
-
 @property (retain) IBOutlet UITableView *kanjiTableView;
 @property (retain) NSFetchedResultsController *fetchedResultsController;
 @property (retain) NSManagedObjectContext *managedObjectContext;

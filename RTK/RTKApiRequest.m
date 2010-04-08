@@ -34,6 +34,14 @@ static NSString *sharedApiKey = nil;
  */
 - (void)requestFinished;
 
+/**
+ Creates an instance of the correct subclass and returns
+ a retained pointer.  You must release this when you are
+ finished.
+ @returns an instance of the ResponseObject
+ */
+- (id) createResponseObjectInstance;
+
 @end
 
 #pragma mark -
@@ -48,13 +56,6 @@ static NSString *sharedApiKey = nil;
 	self = [super initWithURL:newURL];
 	[self setPersistentConnectionTimeoutSeconds:20];
 	return self;
-}
-
-- (id) createResponseObjectInstance 
-{
-	RTKLog(@"This class is not meant to be used directly, please overload this method.");
-	[self doesNotRecognizeSelector: _cmd];
-	return nil;
 }
 
 #pragma mark -
@@ -91,6 +92,13 @@ static NSString *sharedApiKey = nil;
 	[jsonParser release];
 	
 	[super requestFinished];
+}
+
+- (id) createResponseObjectInstance 
+{
+	RTKLog(@"This class is not meant to be used directly, please overload this method.");
+	[self doesNotRecognizeSelector: _cmd];
+	return nil;
 }
 
 #pragma mark -

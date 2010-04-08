@@ -7,12 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+
+// RevTK Specific Imports
 #import "RTKApiRequest.h"
 
-@interface RTKBoxesRequest : RTKApiRequest {
-	
-}
+/**
+ Api Boxes Request.
+ This Api request does a GET for retrieving all the leitner boxes.
+ */
+@interface RTKBoxesRequest : RTKApiRequest
 
+/**
+ Initializes a GET request object for retrieving leiter boxes.
+ The caller of this method must release the Request object themselves.
+ @returns a reference to a RTKBoxesRequest object
+ */
 + (RTKBoxesRequest *)get;
 
 @end

@@ -19,8 +19,6 @@
 	NSArray *newsStories;
 }
 
-- (NSInteger)tableView:(UITableView *)tv numberOfRowsInSection:(NSInteger)section;
-
 @property (nonatomic, retain) IBOutlet UITableView *newsTableView;
 
 @end

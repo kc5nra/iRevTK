@@ -17,6 +17,9 @@
 	return request;
 }
 
+#pragma mark -
+#pragma mark Overloaded RTKApiRequest methods
+
 - (id) createResponseObjectInstance {
 	return [RTKNewsStories alloc];
 }

@@ -45,14 +45,6 @@ extern NSString* const kRTKApiRequestURL;
  */
 - (id)initWithURL:(NSURL *)newURL;
 
-/**
- Creates an instance of the correct subclass and returns
- a retained pointer.  You must release this when you are
- finished.
- @returns an instance of the ResponseObject
- */
-- (id) createResponseObjectInstance;
-
 #pragma mark -
 #pragma mark Global API Key Getter/Setter
 
