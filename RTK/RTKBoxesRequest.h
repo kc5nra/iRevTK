@@ -13,6 +13,6 @@
 	
 }
 
-+ (id)get;
++ (RTKBoxesRequest *)get;
 
 @end

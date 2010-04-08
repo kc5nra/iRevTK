@@ -14,6 +14,6 @@
 
 }
 
-+ (id)get;
++ (RTKNewsRequest *)get;
 
 @end

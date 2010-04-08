@@ -13,6 +13,6 @@
 {	
 }
 
-+ (id)get:(int)newsStoryId;	
++ (RTKNewsStoryRequest *)get:(int)newsStoryId;	
 
 @end

@@ -14,9 +14,9 @@
 @class ASIHTTPRequest;
 @class RTKBoxes;
 
-extern NSString* const kRTKPreferencesUsername;
-extern NSString* const kRTKPreferencesApiKey;
-extern NSString* const kRTKPreferencesAutoLogin;
+extern NSString * const kRTKPreferencesUsername;
+extern NSString * const kRTKPreferencesApiKey;
+extern NSString * const kRTKPreferencesAutoLogin;
 extern NSString * const kRTKNotificationBoxesDidUpdate;
 extern NSString * const kRTKNotificationNewsStoriesDidUpdate;
 
