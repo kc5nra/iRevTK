@@ -10,6 +10,7 @@
 #import "RTKManager.h"
 #import "RTKKanjiTableViewCell.h"
 #import "RTKMultipartLabel.h"
+#import "RTKPredicateSearchOperation.h"
 #import "RTKUtils.h"
 #import "RTK.h"
 
@@ -102,8 +103,6 @@
     NSArray * results = [context executeFetchRequest: fetch error: nil];
 	[results retain];
 	
-	RTKLog(@"Kanji!!! %@ !!!!", [[results objectAtIndex:0] kanji]);
-	
 	kanjiCache = results;
 	
 	lookupByKanjiCache = [[NSMutableDictionary alloc] init];
@@ -136,107 +135,102 @@
 	[pool release];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+- (void)handleKanjiInput:(NSString *)text 
+{
+    if (filteredKanjiList) {
+        [operationQueue cancelAllOperations];
+        [filteredKanjiList release];
+        filteredKanjiList = 0;
+    }
+    
+    filteredKanjiList = [[NSArray arrayWithObject: [lookupByKanjiCache valueForKey: text]] retain];
+    
+    [kanjiTableView reloadData];
+}
+
+- (void)handleNumberInput:(NSString *)text 
+{
+    if (filteredKanjiList) {
+        [operationQueue cancelAllOperations];
+        [filteredKanjiList release];
+        filteredKanjiList = 0;
+    }
+    
+    // at this point this integer has been validated by determineTextType		
+    // subtract one because it is a 0-origin array
+    int intValue = [text intValue] - 1;
+    
+    if ((intValue >= 0) && (intValue < [kanjiCache count])) {
+        filteredKanjiList = [[NSArray arrayWithObject: [kanjiCache objectAtIndex: intValue]] retain];
+    }
+    
+    [kanjiTableView reloadData];
+}
+
+- (void)handleRomajiInput:(NSString *)previousText withNewText: (NSString *)newText 
+{
+    if (filteredKanjiList) {
+        [filteredKanjiList release];
+        filteredKanjiList = 0;
+    }
+    
+    RTKLogO(@"Attempting to cancel all operations in oQ: %@", operationQueue);
+    RTKLogO(@"Operation List: %@", [operationQueue operations]);
+    [operationQueue cancelAllOperations];
+    
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(keyword BEGINSWITH[cd] %@)", newText];
+   
+    
+    
+    RTKPredicateSearchOperation *operation = 
+        [[RTKPredicateSearchOperation alloc] initWithPredicate: predicate withArray: kanjiCache delegate: self];
+    [operationQueue addOperation: operation];
+    [operation release];
+}
+
+- (void)updateFilteredArray:(NSArray *)newFilteredArray;
+{
+    @synchronized (kanjiTableView) {
+        if ([NSThread isMainThread]) {
+            [self setFilteredKanjiList: newFilteredArray];
+            [kanjiTableView reloadData];
+        } else {
+            RTKLogO(@"What?? This should be running on the main thread!!!");
+            [self performSelectorOnMainThread:@selector(updateFilteredArray) withObject:newFilteredArray waitUntilDone:YES];
+        }
+    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText 
+{
 	UTF8Type type = [RTKUtils determineTextType: searchText];
 
-	NSArray *arrayToSearch;
-	NSPredicate *predicateToUse;
+    // clear the kanji 
+    if ((searchText) && ([searchText length] == 0)) {
+        [operationQueue cancelAllOperations];
+        [filteredKanjiList release];
+        filteredKanjiList = 0;
+        [kanjiTableView reloadData];
+        return;
+    }
 	
 	switch (type) {
 		case RTKTextTypeKanji: 
 		{
-			if (filteredKanjiList) {
-				[operationQueue cancelAllOperations];
-				[filteredKanjiList release];
-				filteredKanjiList = 0;
-			}
-			
-			if ([searchText length] > 1) {
-				break;
-			}
-			
-			// fast enough not to need background thread
-			filteredKanjiList = [[NSArray arrayWithObject: [lookupByKanjiCache valueForKey: searchText]] retain];
-			break;
+			[self handleKanjiInput:searchText];
+            break;
 		}
 		case RTKTextTypeRomaji:
 		{
-			if (oldSearchString && ([oldSearchString length] > 0)) {
-				if ([oldSearchString length] < [searchText length]) {
-					int oldSearchStringLength = [oldSearchString length];
-					NSString *searchTextCut = [searchText substringToIndex: oldSearchStringLength];
-					
-					// use the existing filtered list
-					if ([searchTextCut isEqualToString: oldSearchString]) {
-					
-						if (filteredKanjiList) {
-							[operationQueue cancelAllOperations];
-							[filteredKanjiList release];
-							filteredKanjiList = 0;
-						}
-						
-						arrayToSearch = filteredKanjiList;
-						predicateToUse = [NSPredicate predicateWithFormat:@"(keyword BEGINSWITH[cd] %@)", searchText];
-						break;
-					}
-				} else {
-					// same file, do nothing
-					if ([searchText isEqualToString: oldSearchString]) {
-						return;
-					}
-				}
-			}
-			
-			if (filteredKanjiList) {
-				[operationQueue cancelAllOperations];
-				[filteredKanjiList release];
-				filteredKanjiList = 0;
-			}
-			
-			predicateToUse = [NSPredicate predicateWithFormat:@"(keyword BEGINSWITH[cd] %@)", searchText];
-			arrayToSearch = kanjiCache;
-			break;
+			[self handleRomajiInput:[searchBar text] withNewText:searchText];
+            break;
 		}
 		case RTKTextTypeNumbers:
 		{
-			if (filteredKanjiList) {
-				[operationQueue cancelAllOperations];
-				[filteredKanjiList release];
-				filteredKanjiList = 0;
-			}
-			
-			// at this point this integer has been validated by determineTextType		
-			// subtract one because it is a 0-origin array
-			int intValue = [searchText intValue] - 1;
-			
-			if ((intValue >= 0) && (intValue < [kanjiCache count])) {
-				filteredKanjiList = [[NSArray arrayWithObject: [kanjiCache objectAtIndex: intValue]] retain];
-			}
-			break;
+            [self handleNumberInput:searchText];
+            break;
 		}
-	}
-	
-	// the user deleted a character, and the searchText became 0 length
-	if ([searchText length] == 0) {
-		// if we removed all the text, cancel the operations just in case
-		[operationQueue cancelAllOperations];
-		if (filteredKanjiList) {
-			[filteredKanjiList release];
-			filteredKanjiList = 0;
-		}
-	}
-	
-	if (oldSearchString) {
-		[oldSearchString release];
-		oldSearchString = 0;
-	}
-	
-	oldSearchString = [searchText retain];
-	
-	if (filteredKanjiList) {
-		[kanjiTableView reloadData];
-	} else {
-
 	}
 }
 
@@ -301,7 +295,6 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     RTKKanjiTableViewCell *cell = (RTKKanjiTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"RTKKanjiTableViewCell"];
     if (cell == nil) {
 		// Load the top-level objects from the custom cell XIB.
@@ -320,9 +313,13 @@
 	
 	
 	[[cell frameNumberLabel] setText: [NSString stringWithFormat:@"[%@]", [[kanji heisigNumber] stringValue]]];
-	
+    
 	NSString *firstPart = [kanjiSearchBar text];
-	
+
+    if ([firstPart length] > [[kanji keyword] length]) {
+        return cell;
+    }
+    
 	if (([[NSScanner scannerWithString: firstPart] scanInt: nil]) || [firstPart isEqualToString: [kanji kanji]]) {
 		[matchingLabel updateNumberOfLabels: 1];
 		NSString *firstPart = [kanji keyword];

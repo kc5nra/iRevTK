@@ -39,6 +39,7 @@
 		2F22A54A116BE69400B1EE64 /* RTKLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22A548116BE69400B1EE64 /* RTKLoadingView.m */; };
 		2F22A54B116BE69400B1EE64 /* RTKLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F22A549116BE69400B1EE64 /* RTKLoadingView.xib */; };
 		2F22A6F2116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22A6F1116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m */; };
+		2F3647AA116F0996001E6907 /* RTKPredicateSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3647A9116F0996001E6907 /* RTKPredicateSearchOperation.m */; };
 		2F3EC52A116175EB00581DF1 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3EC51F116175EB00581DF1 /* NSObject+SBJSON.m */; };
 		2F3EC52B116175EB00581DF1 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3EC521116175EB00581DF1 /* NSString+SBJSON.m */; };
 		2F3EC52C116175EB00581DF1 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3EC523116175EB00581DF1 /* SBJSON.m */; };
@@ -126,6 +127,8 @@
 		2F22A549116BE69400B1EE64 /* RTKLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKLoadingView.xib; path = Classes/RTKLoadingView.xib; sourceTree = "<group>"; };
 		2F22A6F0116E4C0A00B1EE64 /* RTKBadgedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKBadgedTableViewCell.h; sourceTree = "<group>"; };
 		2F22A6F1116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKBadgedTableViewCell.m; sourceTree = "<group>"; };
+		2F3647A8116F0996001E6907 /* RTKPredicateSearchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKPredicateSearchOperation.h; sourceTree = "<group>"; };
+		2F3647A9116F0996001E6907 /* RTKPredicateSearchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKPredicateSearchOperation.m; sourceTree = "<group>"; };
 		2F3EC51D116175EB00581DF1 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSON.h; path = JSON/JSON.h; sourceTree = SOURCE_ROOT; };
 		2F3EC51E116175EB00581DF1 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJSON.h"; path = "JSON/NSObject+SBJSON.h"; sourceTree = SOURCE_ROOT; };
 		2F3EC51F116175EB00581DF1 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJSON.m"; path = "JSON/NSObject+SBJSON.m"; sourceTree = SOURCE_ROOT; };
@@ -218,6 +221,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2F3647A7116F096A001E6907 /* Operations */,
 				2F229CCC116AA39000B1EE64 /* Models */,
 				2F1003C91163F9D20084BF40 /* Views */,
 				2F8AA81F1162C320009649AD /* Controllers */,
@@ -348,6 +352,15 @@
 				2F22A49D116BB38C00B1EE64 /* RTKKanjiTableViewCell.xib */,
 			);
 			name = "Kanji Study";
+			sourceTree = "<group>";
+		};
+		2F3647A7116F096A001E6907 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				2F3647A8116F0996001E6907 /* RTKPredicateSearchOperation.h */,
+				2F3647A9116F0996001E6907 /* RTKPredicateSearchOperation.m */,
+			);
+			name = Operations;
 			sourceTree = "<group>";
 		};
 		2F3EC51A116175AB00581DF1 /* ASI */ = {
@@ -596,6 +609,7 @@
 				2F22A4A4116BB38C00B1EE64 /* RTKKanjiTableViewCell.m in Sources */,
 				2F22A54A116BE69400B1EE64 /* RTKLoadingView.m in Sources */,
 				2F22A6F2116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m in Sources */,
+				2F3647AA116F0996001E6907 /* RTKPredicateSearchOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

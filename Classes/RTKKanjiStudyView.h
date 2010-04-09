@@ -24,6 +24,11 @@
 	 */
 	NSArray *kanjiCache;
 	
+    /**
+     The main array containing the filtered results
+     */
+    NSArray	*filteredKanjiList;
+    
 	/**
 	 This contains a dictionary that refers to the objects in the kanjiCache with a
 	 kanji->kanjiDetails relationship.  The kanjiDetails is a reference to the main cache.
@@ -36,13 +41,12 @@
 	 */
 	NSDictionary *lookupByKeywordCache;
 	
+    NSTimer      *timer;
+    
 	// Currently unused
 	NSDictionary *lookupByOnYomiCache;
 	NSDictionary *lookupByKunYomiCache;
 	
-	NSArray	*filteredKanjiList;
-	
-	NSString *oldSearchString;
 }
 
 @property (retain) IBOutlet UITableView *kanjiTableView;
