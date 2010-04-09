@@ -6,12 +6,12 @@
 //  Copyright 2010 J. Bradley & Associates, LLC. All rights reserved.
 //
 
+// RevTK Specific Imports
 #import "RTKResponseObject.h"
 #import "RTK.h"
 #import "RTKUtils.h"
 #import "RTKApiError.h"
 #import "RTKApiRequest.h"
-
 
 /*
  Private methods that should only be called by subclasses of this class.
@@ -78,6 +78,8 @@
 			[self setError: [RTKResponseObject getErrorResponseFromDictionary: dictionary]];
 		} else 
 		{
+			// our assumption is that if there is NOT an error in the response then it
+			// must contain a 'response' key.
 			[self parseResponse: [RTKResponseObject getResponseFromDictionary: dictionary]];
 		}
 	}
@@ -87,6 +89,7 @@
 - (id)initFromResponseFragment:(id)fragment withParent:(id) objectParent {
 	[super init];
 	
+	// this is a fragment so set the parent and isFragment properties
 	[self setParent: objectParent];
 	[self setIsFragment: YES];
 	[self parseResponse: fragment];

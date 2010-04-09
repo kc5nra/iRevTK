@@ -10,8 +10,6 @@
 
 
 @interface Kanji :  NSManagedObject  
-{
-}
 
 @property (nonatomic, retain) NSString * onYomi;
 @property (nonatomic, retain) NSNumber * lessonNumber;

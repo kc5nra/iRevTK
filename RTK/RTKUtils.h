@@ -9,6 +9,19 @@
 #import <Foundation/Foundation.h>
 
 /**
+ An enum used when determining what type of text was entered into a text box.
+ */
+typedef enum
+{
+	RTKTextTypeKanji	= 0, 
+	RTKTextTypeHiragana	= 1,
+	RTKTextTypeKatakana	= 2,
+	RTKTextTypeRomaji	= 3,
+	RTKTextTypeNumbers	= 4,
+	RTKTextTypeUnknown	= 5
+} UTF8Type;
+
+/**
  Utility class that contains several static methods.
  */
 @interface RTKUtils : NSObject
@@ -29,7 +42,7 @@
  @param key the key that references a NSNumber
  @returns an integer
  */
-+ (int) getJsonIntegerFromDictionary:(NSDictionary*)dictionary withKey:(NSString*)key;
++ (int)getJsonIntegerFromDictionary:(NSDictionary*)dictionary withKey:(NSString*)key;
 
 /**
  Retrieves a NSNumber from a dictionary and convert it to a boolean.
@@ -37,6 +50,14 @@
  @param key the key that references a NSNumber
  @returns a boolean
  */
-+ (BOOL) getJsonBooleanFromDictionary:(NSDictionary*)dictionary withKey:(NSString*)key;
++ (BOOL)getJsonBooleanFromDictionary:(NSDictionary*)dictionary withKey:(NSString*)key;
+
+
+/**
+ Determines whether the text is of a certain type.
+ @param string the text string to analyze.
+ @returns the type of string
+ */
++ (UTF8Type)determineTextType:(NSString *)string;
 
 @end

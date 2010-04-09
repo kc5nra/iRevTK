@@ -8,14 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RTKNewsViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate> {
+@interface RTKNewsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
 	
 	UITableView *newsTableView;
-	
-	UITableViewCell *newsCell;
-	UILabel *newsDate;
-	UILabel *newsSubject;
-	UITextView *textView;
 	NSArray *newsStories;
 }
 

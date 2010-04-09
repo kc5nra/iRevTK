@@ -11,8 +11,6 @@
 @class Kanji;
 
 @interface Review :  NSManagedObject  
-{
-}
 
 @property (nonatomic, retain) NSNumber * successCount;
 @property (nonatomic, retain) NSNumber * leitnerBox;

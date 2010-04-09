@@ -68,6 +68,7 @@ static NSString *sharedApiKey = nil;
 {
 	[super buildRequestHeaders];
 
+	// if the global api-key has been set, add it to the headers
 	if ([RTKApiRequest apiKey]) {
 		[self addRequestHeader:kRTKApiRequestApiKeyHeader value:[RTKApiRequest apiKey]];
 	}	

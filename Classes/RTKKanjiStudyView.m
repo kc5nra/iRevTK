@@ -10,10 +10,34 @@
 #import "RTKManager.h"
 #import "RTKKanjiTableViewCell.h"
 #import "RTKMultipartLabel.h"
+#import "RTKUtils.h"
 #import "RTK.h"
 
 // model
 #import "Kanji.h"
+
+/**
+ Kanji Study View Caching.
+ This category contains all the code related to the caching of kanji for
+ quicker look ups.
+ */
+@interface RTKKanjiStudyView (Cache)
+/**
+ Builds the relationship cache for keywords.  This method must be called after the main
+ cache has already been built.
+ */
+- (void)buildLookupByKeywordCache;
+/**
+ Builds the relationship cache for kanji.  This method must be called after the main
+ cache has already been built.
+ */
+- (void)buildLookupByKanjiCache;
+/**
+ Builds the main cache and calls the other cache builder methods.
+ */
+- (void)buildCache;
+
+@end
 
 
 @implementation RTKKanjiStudyView
@@ -24,16 +48,11 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	NSError *error = nil;
-	if (![[self fetchedResultsController] performFetch:&error]) {
-		 /*
-		 Replace this implementation with code to handle the error appropriately.
-		 
-		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-		 */
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-	}
+	operationQueue = [[NSOperationQueue alloc] init];
+	[operationQueue setMaxConcurrentOperationCount: 1];
+	
+	[self setManagedObjectContext: [[RTKManager sharedManager] managedObjectContext]];
+	[self buildCache];
 
 }
 
@@ -50,40 +69,175 @@
 }
 
 - (void)dealloc {
-	[fetchedResultsController release];
-	[managedObjectContext release];
 	
     [super dealloc];
 }
 
 #pragma mark -
-#pragma mark Search Bar
+#pragma mark Cache
 
-#define RTK_LEGAL_CHARACTERS	@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-1234567890"
+- (void)buildLookupByKeywordCache 
+{
+	
+}
+- (void)buildLookupByKanjiCache 
+{
+	
+}
+
+- (void)buildCache
+{
+	NSManagedObjectContext *context = [self managedObjectContext];
+	
+	NSEntityDescription * entity = [NSEntityDescription entityForName: @"Kanji" inManagedObjectContext: context];
+    NSFetchRequest * fetch = [[NSFetchRequest alloc] init];
+    [fetch setEntity: entity]; 
+
+	// sort number heisig number
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"heisigNumber" ascending:YES];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [fetch setSortDescriptors: sortDescriptors];
+	
+	// fetch all the kanji
+    NSArray * results = [context executeFetchRequest: fetch error: nil];
+	[results retain];
+	
+	RTKLog(@"Kanji!!! %@ !!!!", [[results objectAtIndex:0] kanji]);
+	
+	kanjiCache = results;
+	
+	lookupByKanjiCache = [[NSMutableDictionary alloc] init];
+	lookupByKeywordCache = [[NSMutableDictionary alloc] init];
+	
+	for (Kanji *kanji in results) {
+		[lookupByKanjiCache setValue:kanji forKey:[kanji kanji]];
+		[lookupByKeywordCache setValue:kanji forKey:[kanji keyword]];
+	}
+		
+	[sortDescriptor release];
+	[sortDescriptors release];
+	[fetch release];
+	
+}
+
+#pragma mark -
+#pragma mark Search Bar
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
 	return YES;
 }
 
-- (void)performFetchAndUpdateTable:(UISearchBar *)searchBar {
-	NSString *searchText = [searchBar text];
-	if ([searchText length] == 0) {
-		[[fetchedResultsController fetchRequest] setPredicate: nil];
-	} else {
-		[NSFetchedResultsController deleteCacheWithName:nil];  
-		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(kanji like[cd] %@) OR (heisigNumber == %@) OR (keyword BEGINSWITH[cd] %@)", searchText, searchText, searchText];
+- (void)asynchronousFilter
+{
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-		
-		[[fetchedResultsController fetchRequest] setPredicate: predicate];
-	}
 	
-	[fetchedResultsController performFetch: nil];
-	[[self kanjiTableView] reloadData];
+	[pool release];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-	[self performFetchAndUpdateTable: searchBar];
+	UTF8Type type = [RTKUtils determineTextType: searchText];
+
+	NSArray *arrayToSearch;
+	NSPredicate *predicateToUse;
+	
+	switch (type) {
+		case RTKTextTypeKanji: 
+		{
+			if (filteredKanjiList) {
+				[operationQueue cancelAllOperations];
+				[filteredKanjiList release];
+				filteredKanjiList = 0;
+			}
+			
+			if ([searchText length] > 1) {
+				break;
+			}
+			
+			// fast enough not to need background thread
+			filteredKanjiList = [[NSArray arrayWithObject: [lookupByKanjiCache valueForKey: searchText]] retain];
+			break;
+		}
+		case RTKTextTypeRomaji:
+		{
+			if (oldSearchString && ([oldSearchString length] > 0)) {
+				if ([oldSearchString length] < [searchText length]) {
+					int oldSearchStringLength = [oldSearchString length];
+					NSString *searchTextCut = [searchText substringToIndex: oldSearchStringLength];
+					
+					// use the existing filtered list
+					if ([searchTextCut isEqualToString: oldSearchString]) {
+					
+						if (filteredKanjiList) {
+							[operationQueue cancelAllOperations];
+							[filteredKanjiList release];
+							filteredKanjiList = 0;
+						}
+						
+						arrayToSearch = filteredKanjiList;
+						predicateToUse = [NSPredicate predicateWithFormat:@"(keyword BEGINSWITH[cd] %@)", searchText];
+						break;
+					}
+				} else {
+					// same file, do nothing
+					if ([searchText isEqualToString: oldSearchString]) {
+						return;
+					}
+				}
+			}
+			
+			if (filteredKanjiList) {
+				[operationQueue cancelAllOperations];
+				[filteredKanjiList release];
+				filteredKanjiList = 0;
+			}
+			
+			predicateToUse = [NSPredicate predicateWithFormat:@"(keyword BEGINSWITH[cd] %@)", searchText];
+			arrayToSearch = kanjiCache;
+			break;
+		}
+		case RTKTextTypeNumbers:
+		{
+			if (filteredKanjiList) {
+				[operationQueue cancelAllOperations];
+				[filteredKanjiList release];
+				filteredKanjiList = 0;
+			}
+			
+			// at this point this integer has been validated by determineTextType		
+			// subtract one because it is a 0-origin array
+			int intValue = [searchText intValue] - 1;
+			
+			if ((intValue >= 0) && (intValue < [kanjiCache count])) {
+				filteredKanjiList = [[NSArray arrayWithObject: [kanjiCache objectAtIndex: intValue]] retain];
+			}
+			break;
+		}
+	}
+	
+	// the user deleted a character, and the searchText became 0 length
+	if ([searchText length] == 0) {
+		// if we removed all the text, cancel the operations just in case
+		[operationQueue cancelAllOperations];
+		if (filteredKanjiList) {
+			[filteredKanjiList release];
+			filteredKanjiList = 0;
+		}
+	}
+	
+	if (oldSearchString) {
+		[oldSearchString release];
+		oldSearchString = 0;
+	}
+	
+	oldSearchString = [searchText retain];
+	
+	if (filteredKanjiList) {
+		[kanjiTableView reloadData];
+	} else {
+
+	}
 }
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
@@ -91,9 +245,7 @@
 	[searchBar sizeToFit];
 	
 	[searchBar setShowsCancelButton:YES animated:YES];
-	
-	[self performFetchAndUpdateTable: searchBar];
-	
+		
 	return YES;
 }
 
@@ -108,7 +260,6 @@
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-	[self performFetchAndUpdateTable: searchBar];
 }
 
 // called when keyboard search button pressed
@@ -135,14 +286,16 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[fetchedResultsController sections] count];
+    //return [[fetchedResultsController sections] count];
+	return 1;
 }
 
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+//	id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
+//    return [sectionInfo numberOfObjects];
+	return [filteredKanjiList count];
 }
 
 
@@ -159,7 +312,9 @@
 	
     
 	// Configure the cell.
-	Kanji *kanji = [fetchedResultsController objectAtIndexPath:indexPath];
+	//Kanji *kanji = [fetchedResultsController objectAtIndexPath:indexPath];
+	Kanji *kanji = [filteredKanjiList objectAtIndex: indexPath.row];
+	
 	[[cell kanjiLabel] setText: [kanji kanji]];
 	RTKMultipartLabel *matchingLabel = [cell matchingLabel];
 	
@@ -191,57 +346,14 @@
 	// [anotherViewController release];
 }
 
-#pragma mark -
-#pragma mark Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController {
-    
-    if (fetchedResultsController != nil) {
-        return fetchedResultsController;
-    }
-	
-	managedObjectContext = [[RTKManager sharedManager] managedObjectContext];
-	
-    /*
-	 Set up the fetched results controller.
-	 */
-	// Create the fetch request for the entity.
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	// Edit the entity name as appropriate.
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Kanji" inManagedObjectContext:managedObjectContext];
-	[fetchRequest setEntity:entity];
-	
-	// Set the batch size to a suitable number.
-	[fetchRequest setFetchBatchSize:20];
-	
-	
-	// Edit the sort key as appropriate.
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"heisigNumber" ascending:YES];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-	
-	[fetchRequest setSortDescriptors:sortDescriptors];
-	
-	// Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:@"KanjiCache"];
-	[self setFetchedResultsController: aFetchedResultsController];
-	
-	[[self fetchedResultsController] setDelegate: self];
-	[aFetchedResultsController release];
-	[fetchRequest release];
-	[sortDescriptor release];
-	[sortDescriptors release];
-	
-	
-	return fetchedResultsController;
-}
 
 
 #pragma mark -
 #pragma mark Synthesized Properties
 
 @synthesize kanjiTableView;
-@synthesize fetchedResultsController;
 @synthesize managedObjectContext;
+@synthesize filteredKanjiList;
+
 @end
 

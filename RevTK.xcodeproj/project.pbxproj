@@ -38,6 +38,7 @@
 		2F22A4A4116BB38C00B1EE64 /* RTKKanjiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22A49E116BB38C00B1EE64 /* RTKKanjiTableViewCell.m */; };
 		2F22A54A116BE69400B1EE64 /* RTKLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22A548116BE69400B1EE64 /* RTKLoadingView.m */; };
 		2F22A54B116BE69400B1EE64 /* RTKLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F22A549116BE69400B1EE64 /* RTKLoadingView.xib */; };
+		2F22A6F2116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22A6F1116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m */; };
 		2F3EC52A116175EB00581DF1 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3EC51F116175EB00581DF1 /* NSObject+SBJSON.m */; };
 		2F3EC52B116175EB00581DF1 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3EC521116175EB00581DF1 /* NSString+SBJSON.m */; };
 		2F3EC52C116175EB00581DF1 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3EC523116175EB00581DF1 /* SBJSON.m */; };
@@ -123,6 +124,8 @@
 		2F22A547116BE69400B1EE64 /* RTKLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKLoadingView.h; sourceTree = "<group>"; };
 		2F22A548116BE69400B1EE64 /* RTKLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKLoadingView.m; sourceTree = "<group>"; };
 		2F22A549116BE69400B1EE64 /* RTKLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKLoadingView.xib; path = Classes/RTKLoadingView.xib; sourceTree = "<group>"; };
+		2F22A6F0116E4C0A00B1EE64 /* RTKBadgedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKBadgedTableViewCell.h; sourceTree = "<group>"; };
+		2F22A6F1116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKBadgedTableViewCell.m; sourceTree = "<group>"; };
 		2F3EC51D116175EB00581DF1 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSON.h; path = JSON/JSON.h; sourceTree = SOURCE_ROOT; };
 		2F3EC51E116175EB00581DF1 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJSON.h"; path = "JSON/NSObject+SBJSON.h"; sourceTree = SOURCE_ROOT; };
 		2F3EC51F116175EB00581DF1 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJSON.m"; path = "JSON/NSObject+SBJSON.m"; sourceTree = SOURCE_ROOT; };
@@ -215,8 +218,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				2F229CCC116AA39000B1EE64 /* Model */,
-				2F1003C91163F9D20084BF40 /* View */,
+				2F229CCC116AA39000B1EE64 /* Models */,
+				2F1003C91163F9D20084BF40 /* Views */,
 				2F8AA81F1162C320009649AD /* Controllers */,
 				2F3EC51C116175BE00581DF1 /* JSON */,
 				2F3EC51B116175B400581DF1 /* RTK */,
@@ -298,7 +301,7 @@
 			name = News;
 			sourceTree = "<group>";
 		};
-		2F1003C91163F9D20084BF40 /* View */ = {
+		2F1003C91163F9D20084BF40 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				2F22A49E116BB38C00B1EE64 /* RTKKanjiTableViewCell.m */,
@@ -313,8 +316,10 @@
 				2F22A01C116ADAD000B1EE64 /* RTKMultipartLabel.m */,
 				2F22A547116BE69400B1EE64 /* RTKLoadingView.h */,
 				2F22A548116BE69400B1EE64 /* RTKLoadingView.m */,
+				2F22A6F0116E4C0A00B1EE64 /* RTKBadgedTableViewCell.h */,
+				2F22A6F1116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m */,
 			);
-			name = View;
+			name = Views;
 			sourceTree = "<group>";
 		};
 		2F20E90F1164769900A583BA /* Cards */ = {
@@ -325,7 +330,7 @@
 			name = Cards;
 			sourceTree = "<group>";
 		};
-		2F229CCC116AA39000B1EE64 /* Model */ = {
+		2F229CCC116AA39000B1EE64 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				2F810CDD116A4DE600377A83 /* Review.h */,
@@ -333,7 +338,7 @@
 				2F810CDF116A4DE600377A83 /* Kanji.h */,
 				2F810CE0116A4DE600377A83 /* Kanji.m */,
 			);
-			name = Model;
+			name = Models;
 			sourceTree = "<group>";
 		};
 		2F229E63116AB6EE00B1EE64 /* Kanji Study */ = {
@@ -479,9 +484,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* RevTK */ = {
+		1D6058900D05DD3D006BFB54 /* zombie */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RevTK" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "zombie" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -491,7 +496,7 @@
 			);
 			dependencies = (
 			);
-			name = RevTK;
+			name = zombie;
 			productName = RevTK;
 			productReference = 1D6058910D05DD3D006BFB54 /* RevTK.app */;
 			productType = "com.apple.product-type.application";
@@ -512,7 +517,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* RevTK */,
+				1D6058900D05DD3D006BFB54 /* zombie */,
 			);
 		};
 /* End PBXProject section */
@@ -590,6 +595,7 @@
 				2F22A4A1116BB38C00B1EE64 /* RTKDataModel.xcdatamodel in Sources */,
 				2F22A4A4116BB38C00B1EE64 /* RTKKanjiTableViewCell.m in Sources */,
 				2F22A54A116BE69400B1EE64 /* RTKLoadingView.m in Sources */,
+				2F22A6F2116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,7 +659,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RevTK" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "zombie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,

@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class RTKBoxes;
 
-@interface RTKBoxesViewController : UIViewController {
-	IBOutlet UIView *myView;
+@interface RTKBoxesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+	RTKBoxes *boxes;
 }
+
+@property (retain) RTKBoxes *boxes;
 
 @end

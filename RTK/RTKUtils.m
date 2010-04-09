@@ -83,4 +83,38 @@
 	return ([_int integerValue] == 1) ? TRUE : FALSE;
 }
 
++ (UTF8Type)determineTextType:(NSString *)string
+{
+	if ([[NSScanner scannerWithString: string] scanInt: nil]) {
+		return RTKTextTypeNumbers;
+	}
+	
+	if ([string length] > 0) {
+		
+		// get the character
+		unichar myChar = [string characterAtIndex: 0];
+
+		// kanji
+		if ((myChar >= 0x4E00) && (myChar <= 0x9FAF)) 
+		{	
+			return RTKTextTypeKanji;
+		} 
+		// hiragana
+		else if ((myChar >= 0x3040) && (myChar <= 0x3096))
+		{
+			return RTKTextTypeHiragana;
+		} 
+		// katakana
+		else if (((myChar >= 0x30A1) && (myChar <= 0x30FA))	||
+				 ((myChar >= 0x31F0) && (myChar <= 0x31FF))	||
+				 ((myChar >= 0xFF66) && (myChar <= 0xFF9D)))
+		{
+			return RTKTextTypeKatakana;
+		} else {
+			return RTKTextTypeRomaji;
+		}
+	}
+	return RTKTextTypeUnknown;
+}
+
 @end

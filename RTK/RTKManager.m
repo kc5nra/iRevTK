@@ -79,7 +79,7 @@ static RTKManager *sharedManager;
 	
 	managedObjectContext = [self managedObjectContext];
 	
-	//[self preloadKanjiData];
+	[self preloadKanjiData];
 	
 	return self;
 }
@@ -208,7 +208,6 @@ static RTKManager *sharedManager;
 	
     for (NSManagedObject *managedObject in items) {
         [managedObjectContext deleteObject:managedObject];
-        RTKLog(@"%@ object deleted",entityDescription);
     }
     if (![managedObjectContext save:&error]) {
         RTKLog(@"Error deleting %@ - error:%@",entityDescription, error);
