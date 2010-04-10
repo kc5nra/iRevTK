@@ -13,24 +13,24 @@
 
 @interface RTKAccountController : UIViewController<UITextFieldDelegate> {
 	
-	IBOutlet UITableView		*tableView;
+	IBOutlet UITableView                *tableView;
 	
-	IBOutlet UITableViewCell	*userNameTableViewCell;
-    IBOutlet UITableViewCell	*passwordTableViewCell;
-	IBOutlet UITableViewCell	*apiKeyTableViewCell;
+	IBOutlet UITableViewCell            *userNameTableViewCell;
+    IBOutlet UITableViewCell            *passwordTableViewCell;
+	IBOutlet UITableViewCell            *apiKeyTableViewCell;
 	
-	IBOutlet UITextField		*userNameTextField;
-    IBOutlet UITextField		*passwordTextField;
+	IBOutlet UITextField                *userNameTextField;
+    IBOutlet UITextField                *passwordTextField;
 	
-    IBOutlet UILabel			*userNameLabel;
-    IBOutlet UILabel			*passwordLabel;
-	IBOutlet UILabel			*apiKeyLabel;
+    IBOutlet UILabel                    *userNameLabel;
+    IBOutlet UILabel                    *passwordLabel;
+	IBOutlet UILabel                    *apiKeyLabel;
 	
-	IBOutlet UIButton			*loginButton;
+	IBOutlet UIButton                   *loginButton;
 	
-	UIActivityIndicatorView		*activityIndicator;
+	IBOutlet UIActivityIndicatorView    *activityIndicator;
 	
-	RTKManager					*manager;
+	RTKManager                          *manager;
 }
 
 - (void)login:(id)sender;

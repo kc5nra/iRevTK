@@ -14,6 +14,7 @@
 #import "RTKSimpleBox.h"
 #import "RTKManager.h"
 #import "RTKAccountController.h"
+#import "RTKLoadingViewController.h"
 
 int const kRTKTabBarReviewIndex = 1;
 
@@ -68,7 +69,7 @@ static RevTKDelegate *rtkApp = NULL;
 		[manager addUpdateBoxesToQueue];
 		
 	} else {
-		//[tabBarController presentModalViewController:accountController animated:NO];
+		[tabBarController presentModalViewController:accountController animated:NO];
 	}
 }
 

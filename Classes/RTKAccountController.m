@@ -54,6 +54,13 @@
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(requestFinished:)];
 	[request startAsynchronous];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelay: 0.25];
+    [activityIndicator setAlpha: 1.0];
+    [activityIndicator startAnimating];
+    [UIView commitAnimations];
+    
 }
 
 - (void)autoLogin {
@@ -66,6 +73,13 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelay: 0.25];
+    [activityIndicator setAlpha: 0.0];
+    [activityIndicator stopAnimating];
+    [UIView commitAnimations];
+    
 	RTKApiKeyRequest *apiRequest = (RTKApiKeyRequest *)request;
 	
 	//[activityIndicator stopAnimating];
@@ -98,6 +112,12 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDelay: 0.25];
+    [activityIndicator setAlpha: 0.0];
+    [activityIndicator stopAnimating];
+    [UIView commitAnimations];
+    
 	RTKApiKeyRequest *apiRequest = (RTKApiKeyRequest *)request;
 	
 	

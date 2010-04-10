@@ -10,18 +10,19 @@
 
 @class RTKManager;
 @class RTKAccountController;
+@class RTKLoadingViewController;
 @class RootController;
 
 @interface RevTKDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     
-	IBOutlet RTKAccountController		*accountController;
-
-	IBOutlet UIWindow				*window;
-	IBOutlet UITabBarController		*tabBarController;
-	IBOutlet UINavigationController *navigationController;
+	IBOutlet RTKAccountController       *accountController;
+    IBOutlet RTKLoadingViewController   *loadingViewController;
+	IBOutlet UIWindow                   *window;
+	IBOutlet UITabBarController         *tabBarController;
+	IBOutlet UINavigationController     *navigationController;
 	
-	BOOL alertDialogRunning;
-	RTKManager *manager;
+	BOOL                                alertDialogRunning;
+	RTKManager                          *manager;
 }
 
 + (RevTKDelegate *)sharedRevTKApplication;

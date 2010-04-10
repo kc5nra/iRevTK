@@ -36,8 +36,6 @@
 		2F22A4A2116BB38C00B1EE64 /* RTKKanjiStudyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F22A49C116BB38C00B1EE64 /* RTKKanjiStudyViewController.xib */; };
 		2F22A4A3116BB38C00B1EE64 /* RTKKanjiTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F22A49D116BB38C00B1EE64 /* RTKKanjiTableViewCell.xib */; };
 		2F22A4A4116BB38C00B1EE64 /* RTKKanjiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22A49E116BB38C00B1EE64 /* RTKKanjiTableViewCell.m */; };
-		2F22A54A116BE69400B1EE64 /* RTKLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22A548116BE69400B1EE64 /* RTKLoadingView.m */; };
-		2F22A54B116BE69400B1EE64 /* RTKLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F22A549116BE69400B1EE64 /* RTKLoadingView.xib */; };
 		2F22A6F2116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F22A6F1116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m */; };
 		2F34ED6E116FE73800138E29 /* RTKKanjiPracticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F34ED6C116FE73800138E29 /* RTKKanjiPracticeViewController.xib */; };
 		2F34ED88116FEAF800138E29 /* RTKKanjiPracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F34ED87116FEAF800138E29 /* RTKKanjiPracticeViewController.m */; };
@@ -66,6 +64,8 @@
 		2F3EC595116177F000581DF1 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3EC594116177F000581DF1 /* libz.1.2.3.dylib */; };
 		2F572841117012C400D62B0C /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F57283F117012C400D62B0C /* Back.png */; };
 		2F572842117012C400D62B0C /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F572840117012C400D62B0C /* Refresh.png */; };
+		2F5728B51170D38B00D62B0C /* RTKLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5728B31170D38B00D62B0C /* RTKLoadingViewController.m */; };
+		2F5728B61170D38B00D62B0C /* RTKLoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F5728B41170D38B00D62B0C /* RTKLoadingViewController.xib */; };
 		2F7F6916116FD9DC00743CDF /* RTKKanjiDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7F6914116FD9DC00743CDF /* RTKKanjiDetailViewController.m */; };
 		2F7F6917116FD9DC00743CDF /* RTKKanjiDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7F6915116FD9DC00743CDF /* RTKKanjiDetailViewController.xib */; };
 		2F8109481164D42F00377A83 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8109471164D42F00377A83 /* QuartzCore.framework */; };
@@ -128,9 +128,6 @@
 		2F22A49D116BB38C00B1EE64 /* RTKKanjiTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKKanjiTableViewCell.xib; path = Classes/RTKKanjiTableViewCell.xib; sourceTree = "<group>"; };
 		2F22A49E116BB38C00B1EE64 /* RTKKanjiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKKanjiTableViewCell.m; sourceTree = "<group>"; };
 		2F22A49F116BB38C00B1EE64 /* RTKKanjiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKKanjiTableViewCell.h; sourceTree = "<group>"; };
-		2F22A547116BE69400B1EE64 /* RTKLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKLoadingView.h; sourceTree = "<group>"; };
-		2F22A548116BE69400B1EE64 /* RTKLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKLoadingView.m; sourceTree = "<group>"; };
-		2F22A549116BE69400B1EE64 /* RTKLoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKLoadingView.xib; path = Classes/RTKLoadingView.xib; sourceTree = "<group>"; };
 		2F22A6F0116E4C0A00B1EE64 /* RTKBadgedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKBadgedTableViewCell.h; sourceTree = "<group>"; };
 		2F22A6F1116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKBadgedTableViewCell.m; sourceTree = "<group>"; };
 		2F34ED6A116FE73800138E29 /* RTKKanjiPracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKKanjiPracticeViewController.h; sourceTree = "<group>"; };
@@ -183,6 +180,9 @@
 		2F3EC594116177F000581DF1 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		2F57283F117012C400D62B0C /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Back.png; path = Images/Back.png; sourceTree = "<group>"; };
 		2F572840117012C400D62B0C /* Refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Refresh.png; path = Images/Refresh.png; sourceTree = "<group>"; };
+		2F5728B21170D38B00D62B0C /* RTKLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKLoadingViewController.h; sourceTree = "<group>"; };
+		2F5728B31170D38B00D62B0C /* RTKLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKLoadingViewController.m; sourceTree = "<group>"; };
+		2F5728B41170D38B00D62B0C /* RTKLoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKLoadingViewController.xib; path = Classes/RTKLoadingViewController.xib; sourceTree = "<group>"; };
 		2F7F6913116FD9DC00743CDF /* RTKKanjiDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKKanjiDetailViewController.h; sourceTree = "<group>"; };
 		2F7F6914116FD9DC00743CDF /* RTKKanjiDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKKanjiDetailViewController.m; sourceTree = "<group>"; };
 		2F7F6915116FD9DC00743CDF /* RTKKanjiDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKKanjiDetailViewController.xib; path = Classes/RTKKanjiDetailViewController.xib; sourceTree = "<group>"; };
@@ -288,7 +288,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2F22A549116BE69400B1EE64 /* RTKLoadingView.xib */,
+				2F5728B41170D38B00D62B0C /* RTKLoadingViewController.xib */,
 				2F229E63116AB6EE00B1EE64 /* Kanji Study */,
 				2F20E90F1164769900A583BA /* Cards */,
 				2F1003BC1163F97D0084BF40 /* News */,
@@ -332,8 +332,6 @@
 				2F20E9471164799A00A583BA /* RTKBoxGraphView.m */,
 				2F22A01B116ADAD000B1EE64 /* RTKMultipartLabel.h */,
 				2F22A01C116ADAD000B1EE64 /* RTKMultipartLabel.m */,
-				2F22A547116BE69400B1EE64 /* RTKLoadingView.h */,
-				2F22A548116BE69400B1EE64 /* RTKLoadingView.m */,
 				2F22A6F0116E4C0A00B1EE64 /* RTKBadgedTableViewCell.h */,
 				2F22A6F1116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m */,
 			);
@@ -496,6 +494,8 @@
 				2F7F6914116FD9DC00743CDF /* RTKKanjiDetailViewController.m */,
 				2F34ED6A116FE73800138E29 /* RTKKanjiPracticeViewController.h */,
 				2F34ED87116FEAF800138E29 /* RTKKanjiPracticeViewController.m */,
+				2F5728B21170D38B00D62B0C /* RTKLoadingViewController.h */,
+				2F5728B31170D38B00D62B0C /* RTKLoadingViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -577,11 +577,11 @@
 				2F22A4A0116BB38C00B1EE64 /* RTKData.plist in Resources */,
 				2F22A4A2116BB38C00B1EE64 /* RTKKanjiStudyViewController.xib in Resources */,
 				2F22A4A3116BB38C00B1EE64 /* RTKKanjiTableViewCell.xib in Resources */,
-				2F22A54B116BE69400B1EE64 /* RTKLoadingView.xib in Resources */,
 				2F7F6917116FD9DC00743CDF /* RTKKanjiDetailViewController.xib in Resources */,
 				2F34ED6E116FE73800138E29 /* RTKKanjiPracticeViewController.xib in Resources */,
 				2F572841117012C400D62B0C /* Back.png in Resources */,
 				2F572842117012C400D62B0C /* Refresh.png in Resources */,
+				2F5728B61170D38B00D62B0C /* RTKLoadingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,11 +633,11 @@
 				2F22A01D116ADAD000B1EE64 /* RTKMultipartLabel.m in Sources */,
 				2F22A4A1116BB38C00B1EE64 /* RTKDataModel.xcdatamodel in Sources */,
 				2F22A4A4116BB38C00B1EE64 /* RTKKanjiTableViewCell.m in Sources */,
-				2F22A54A116BE69400B1EE64 /* RTKLoadingView.m in Sources */,
 				2F22A6F2116E4C0A00B1EE64 /* RTKBadgedTableViewCell.m in Sources */,
 				2F3647AA116F0996001E6907 /* RTKPredicateSearchOperation.m in Sources */,
 				2F7F6916116FD9DC00743CDF /* RTKKanjiDetailViewController.m in Sources */,
 				2F34ED88116FEAF800138E29 /* RTKKanjiPracticeViewController.m in Sources */,
+				2F5728B51170D38B00D62B0C /* RTKLoadingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

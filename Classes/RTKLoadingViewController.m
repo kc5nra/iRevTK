@@ -1,20 +1,20 @@
 //
-//  RTKLoadingView.m
+//  RTKLoadingViewController.m
 //  RevTK
 //
-//  Created by John Bradley on 4/6/10.
-//  Copyright 2010 J. Bradley & Associates, LLC.. All rights reserved.
+//  Created by ジョン ブラッドリー on 4/10/10.
+//  Copyright 2010 J. Bradley & Associates, LLC. All rights reserved.
 //
 
-#import "RTKLoadingView.h"
+#import "RTKLoadingViewController.h"
 
 
-@implementation RTKLoadingView
+@implementation RTKLoadingViewController
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
     }
     return self;
@@ -37,15 +37,16 @@
 */
 
 - (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
+    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
+    
+    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
 
 
