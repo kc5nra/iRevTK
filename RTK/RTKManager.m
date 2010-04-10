@@ -168,21 +168,24 @@ static RTKManager *sharedManager;
 {
 	NSString* plistPath = [[NSBundle mainBundle] pathForResource:kRTKDataPlist ofType:@"plist"];
 	
+	RTKLogO(@"Loading %@...", plistPath);
 	NSDictionary* kanjis = [[NSDictionary alloc] initWithContentsOfFile: plistPath];
 	// delete all entries in the Kanji database
+	RTKLogO(@"Deleting existing objects in database...");
 	[self deleteAllObjects: @"Kanji"];
 	
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Kanji" inManagedObjectContext:managedObjectContext];
 	
+	RTKLogO(@"Creating %d objects to commit to the database...", [kanjis count]);
 	for (id kanjiNumber in kanjis) {
 		NSDictionary *kanji = [kanjis objectForKey:kanjiNumber];
-		
 		
 		Kanji *newKanji = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:managedObjectContext];
 		[newKanji setValuesForKeysWithDictionary: kanji];
 	}
 	NSError *error;
-	;
+	
+	RTKLogO(@"Saving objects to the database...");
 	if (![managedObjectContext save: &error]) {
 		RTKLog(@"Error saving Kanji List - error:%@", error);
 		NSArray *array = [[error userInfo] objectForKey: NSDetailedErrorsKey];
@@ -191,6 +194,8 @@ static RTKManager *sharedManager;
 			RTKLog(@"Detailed: %@", [err userInfo]);
 		}
 	}
+	
+	RTKLogO(@"Done preloading Kanji data.");
 	
 
 	
