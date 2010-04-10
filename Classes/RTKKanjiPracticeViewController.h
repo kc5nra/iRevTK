@@ -15,9 +15,12 @@
 	IBOutlet UIImageView *imageView;
 	IBOutlet UILabel *kanjiLabel;
 	IBOutlet UISegmentedControl *segmentedControl;
+    IBOutlet UIButton *closePractice;
+    IBOutlet UIButton *clearImage;
 }
 
 - (void)displayKanji:(id)sender;
-
-
+- (void)closePractice:(id)sender;
+- (void)clearImage:(id)sender;
+- (void)clearImageFinished;
 @end

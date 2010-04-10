@@ -64,6 +64,8 @@
 		2F3EC58B1161779500581DF1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3EC58A1161779500581DF1 /* SystemConfiguration.framework */; };
 		2F3EC58D1161779B00581DF1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3EC58C1161779B00581DF1 /* MobileCoreServices.framework */; };
 		2F3EC595116177F000581DF1 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3EC594116177F000581DF1 /* libz.1.2.3.dylib */; };
+		2F572841117012C400D62B0C /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F57283F117012C400D62B0C /* Back.png */; };
+		2F572842117012C400D62B0C /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F572840117012C400D62B0C /* Refresh.png */; };
 		2F7F6916116FD9DC00743CDF /* RTKKanjiDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7F6914116FD9DC00743CDF /* RTKKanjiDetailViewController.m */; };
 		2F7F6917116FD9DC00743CDF /* RTKKanjiDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7F6915116FD9DC00743CDF /* RTKKanjiDetailViewController.xib */; };
 		2F8109481164D42F00377A83 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8109471164D42F00377A83 /* QuartzCore.framework */; };
@@ -179,6 +181,8 @@
 		2F3EC58A1161779500581DF1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2F3EC58C1161779B00581DF1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2F3EC594116177F000581DF1 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
+		2F57283F117012C400D62B0C /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Back.png; path = Images/Back.png; sourceTree = "<group>"; };
+		2F572840117012C400D62B0C /* Refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Refresh.png; path = Images/Refresh.png; sourceTree = "<group>"; };
 		2F7F6913116FD9DC00743CDF /* RTKKanjiDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKKanjiDetailViewController.h; sourceTree = "<group>"; };
 		2F7F6914116FD9DC00743CDF /* RTKKanjiDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKKanjiDetailViewController.m; sourceTree = "<group>"; };
 		2F7F6915116FD9DC00743CDF /* RTKKanjiDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKKanjiDetailViewController.xib; path = Classes/RTKKanjiDetailViewController.xib; sourceTree = "<group>"; };
@@ -499,6 +503,8 @@
 		2F9F0B5D1162F86E007E52B1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2F57283F117012C400D62B0C /* Back.png */,
+				2F572840117012C400D62B0C /* Refresh.png */,
 				2F229E57116AB62600B1EE64 /* Study.png */,
 				2F1005B2116416290084BF40 /* SmallKanji.gif */,
 				2F1002641163E5B30084BF40 /* Archive.png */,
@@ -574,6 +580,8 @@
 				2F22A54B116BE69400B1EE64 /* RTKLoadingView.xib in Resources */,
 				2F7F6917116FD9DC00743CDF /* RTKKanjiDetailViewController.xib in Resources */,
 				2F34ED6E116FE73800138E29 /* RTKKanjiPracticeViewController.xib in Resources */,
+				2F572841117012C400D62B0C /* Back.png in Resources */,
+				2F572842117012C400D62B0C /* Refresh.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
