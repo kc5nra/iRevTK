@@ -13,6 +13,7 @@
 @class RTKApiRequest;
 @class ASIHTTPRequest;
 @class RTKBoxes;
+@class Kanji;
 
 extern NSString * const kRTKPreferencesUsername;
 extern NSString * const kRTKPreferencesApiKey;
@@ -31,6 +32,8 @@ extern NSString * const kRTKNotificationNewsStoriesDidUpdate;
 	RevTKDelegate		*sharedApplication;
 	
 	RTKBoxes			*boxes;
+	Kanji				*currentStudiedKanji;
+	
 }
 
 - (BOOL)getBoolPreferenceForKey:(NSString *)key;
@@ -47,9 +50,11 @@ extern NSString * const kRTKNotificationNewsStoriesDidUpdate;
 
 + (RTKManager *)sharedManager;
 
-@property (retain) NSOperationQueue *networkQueue;
-@property (retain) RTKBoxes *boxes;
-
+// Manager properties
+@property (retain)						NSOperationQueue				*networkQueue;
+@property (retain)						RTKBoxes						*boxes;
+@property (retain)						Kanji							*currentStudiedKanji;
+// Core Data
 @property (nonatomic, retain, readonly) NSManagedObjectModel			*managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext			*managedObjectContext;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator	*persistentStoreCoordinator;

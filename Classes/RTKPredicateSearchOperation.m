@@ -27,7 +27,6 @@
 - (void)main
 {
     NSArray *result = [arrayToSearch filteredArrayUsingPredicate: filterPredicate];
-    [NSThread sleepForTimeInterval:0.5];
     RTKLogO(@"I'm finished with my search.");
     if (![self isCancelled]) {
         [delegate performSelectorOnMainThread:@selector(updateFilteredArray:) withObject:result waitUntilDone:YES];

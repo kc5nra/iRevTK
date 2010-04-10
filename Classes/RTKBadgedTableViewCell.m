@@ -12,8 +12,6 @@
 
 @implementation RTKBadgeTableViewCellBadgeView
 
-
-
 - (id) initWithFrame:(CGRect)frame
 {
 	

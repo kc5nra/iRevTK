@@ -9,13 +9,29 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface RTKKanjiStudyView :  UIViewController<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
+/**
+ Kanji Study View.
+ The main view for reviewing Kanji and story management.
+ */
+@interface RTKKanjiStudyViewController :  UIViewController<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
 	
+	/**
+	 Reference to the main TableView containing the results of the current search.
+	 */
 	IBOutlet UITableView *kanjiTableView;
+	/**
+	 Reference to the searchbar.
+	 */
 	IBOutlet UISearchBar *kanjiSearchBar;
 	
+	/**
+	 Operation Queue for handling all asynchronous kanji lookups.
+	 */
 	NSOperationQueue *operationQueue;
 	
+	/**
+	 Managed Object Context for synchronizing the fetches.
+	 */
 	NSManagedObjectContext *managedObjectContext;
 	
 @private
@@ -40,19 +56,18 @@
 	 keyword->kanjiDetails relationship.  The kanjiDetails is a reference to the main cache.
 	 */
 	NSDictionary *lookupByKeywordCache;
-	
-    NSTimer      *timer;
     
 	// Currently unused
 	NSDictionary *lookupByOnYomiCache;
 	NSDictionary *lookupByKunYomiCache;
-	
+
+	NSIndexPath	 *previouslySelectedIndexPath;
 }
 
 @property (retain) IBOutlet UITableView *kanjiTableView;
 @property (retain) NSManagedObjectContext *managedObjectContext;
 @property (retain) NSArray *filteredKanjiList;
-
+@property (retain) NSIndexPath *previouslySelectedIndexPath;
 @end
 
 

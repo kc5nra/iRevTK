@@ -304,5 +304,6 @@ static RTKManager *sharedManager;
 
 @synthesize networkQueue;
 @synthesize boxes;
+@synthesize currentStudiedKanji;
 
 @end

@@ -98,5 +98,6 @@ static RevTKDelegate *rtkApp = NULL;
 }
 
 @synthesize tabBarController;
+@synthesize navigationController;
 
 @end
