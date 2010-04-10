@@ -23,9 +23,11 @@
 	
 	BOOL                                alertDialogRunning;
 	RTKManager                          *manager;
+	UIImageView							*splashView;
 }
 
 + (RevTKDelegate *)sharedRevTKApplication;
+- (void)startupAnimationDone:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 @property (nonatomic, retain) IBOutlet UITabBarController		*tabBarController;
 @property (nonatomic, retain) IBOutlet UINavigationController	*navigationController;

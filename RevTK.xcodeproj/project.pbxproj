@@ -82,6 +82,7 @@
 		2F8AA8241162C383009649AD /* RTKAccountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F8AA8221162C383009649AD /* RTKAccountController.xib */; };
 		2F9F0B5B1162F86A007E52B1 /* Background.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2F9F0B591162F86A007E52B1 /* Background.gif */; };
 		2F9F0B5C1162F86A007E52B1 /* Kanji.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2F9F0B5A1162F86A007E52B1 /* Kanji.gif */; };
+		2FBA885F117109B80030D97C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FBA885E117109B80030D97C /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,6 +209,7 @@
 		2F8AA8221162C383009649AD /* RTKAccountController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKAccountController.xib; path = Classes/RTKAccountController.xib; sourceTree = "<group>"; };
 		2F9F0B591162F86A007E52B1 /* Background.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = Background.gif; path = Images/Background.gif; sourceTree = "<group>"; };
 		2F9F0B5A1162F86A007E52B1 /* Kanji.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = Kanji.gif; path = Images/Kanji.gif; sourceTree = "<group>"; };
+		2FBA885E117109B80030D97C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* RevTK_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevTK_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RevTK-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RevTK-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -503,6 +505,7 @@
 		2F9F0B5D1162F86E007E52B1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2FBA885E117109B80030D97C /* Default.png */,
 				2F57283F117012C400D62B0C /* Back.png */,
 				2F572840117012C400D62B0C /* Refresh.png */,
 				2F229E57116AB62600B1EE64 /* Study.png */,
@@ -582,6 +585,7 @@
 				2F572841117012C400D62B0C /* Back.png in Resources */,
 				2F572842117012C400D62B0C /* Refresh.png in Resources */,
 				2F5728B61170D38B00D62B0C /* RTKLoadingViewController.xib in Resources */,
+				2FBA885F117109B80030D97C /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
