@@ -68,7 +68,7 @@ static RevTKDelegate *rtkApp = NULL;
 		[manager addUpdateBoxesToQueue];
 		
 	} else {
-		//[tabBarController presentModalViewController:accountController animated:NO];
+		[tabBarController presentModalViewController:accountController animated:NO];
 	}
 }
 
