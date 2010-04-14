@@ -15,7 +15,7 @@
 #import "RTKApiError.h"
 #import "RTKResponseObject.h"
 
-NSString* const kRTKApiRequestURL			= @"192.168.0.195:8080";
+NSString* const kRTKApiRequestURL			= @"127.0.0.1:8080";
 NSString* const kRTKApiRequestApiKeyHeader	= @"revtk-api-key";
 
 static NSString *sharedApiKey = nil;

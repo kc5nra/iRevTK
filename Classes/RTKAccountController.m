@@ -89,6 +89,8 @@
 	// get the api key response
 	RTKApiKey *response = (RTKApiKey *)[apiRequest object];
 	if (response && ([response apiKey])) {
+        
+        RTKLog(@"ApiKey: %@", [response apiKey]);
 		// got a new api key, add to preferences
 		[manager setStringPreferenceForKey:kRTKPreferencesApiKey withValue: [response apiKey]];
 		

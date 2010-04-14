@@ -66,6 +66,10 @@
 		2F572842117012C400D62B0C /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F572840117012C400D62B0C /* Refresh.png */; };
 		2F5728B51170D38B00D62B0C /* RTKLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5728B31170D38B00D62B0C /* RTKLoadingViewController.m */; };
 		2F5728B61170D38B00D62B0C /* RTKLoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F5728B41170D38B00D62B0C /* RTKLoadingViewController.xib */; };
+		2F5729121174374600D62B0C /* RTKCardStoriesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5729111174374600D62B0C /* RTKCardStoriesRequest.m */; };
+		2F57291D117438EC00D62B0C /* RTKStories.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F57291C117438EC00D62B0C /* RTKStories.m */; };
+		2F57292A11743BE400D62B0C /* RTKStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F57292911743BE400D62B0C /* RTKStory.m */; };
+		2F572A311174D69000D62B0C /* RTKStoriesSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F572A301174D69000D62B0C /* RTKStoriesSearchOperation.m */; };
 		2F7F6916116FD9DC00743CDF /* RTKKanjiDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7F6914116FD9DC00743CDF /* RTKKanjiDetailViewController.m */; };
 		2F7F6917116FD9DC00743CDF /* RTKKanjiDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F7F6915116FD9DC00743CDF /* RTKKanjiDetailViewController.xib */; };
 		2F8109481164D42F00377A83 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F8109471164D42F00377A83 /* QuartzCore.framework */; };
@@ -184,6 +188,14 @@
 		2F5728B21170D38B00D62B0C /* RTKLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKLoadingViewController.h; sourceTree = "<group>"; };
 		2F5728B31170D38B00D62B0C /* RTKLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKLoadingViewController.m; sourceTree = "<group>"; };
 		2F5728B41170D38B00D62B0C /* RTKLoadingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKLoadingViewController.xib; path = Classes/RTKLoadingViewController.xib; sourceTree = "<group>"; };
+		2F5729101174374600D62B0C /* RTKCardStoriesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTKCardStoriesRequest.h; path = RTK/RTKCardStoriesRequest.h; sourceTree = SOURCE_ROOT; };
+		2F5729111174374600D62B0C /* RTKCardStoriesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTKCardStoriesRequest.m; path = RTK/RTKCardStoriesRequest.m; sourceTree = SOURCE_ROOT; };
+		2F57291B117438EC00D62B0C /* RTKStories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTKStories.h; path = RTK/RTKStories.h; sourceTree = SOURCE_ROOT; };
+		2F57291C117438EC00D62B0C /* RTKStories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTKStories.m; path = RTK/RTKStories.m; sourceTree = SOURCE_ROOT; };
+		2F57292811743BE400D62B0C /* RTKStory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RTKStory.h; path = RTK/RTKStory.h; sourceTree = SOURCE_ROOT; };
+		2F57292911743BE400D62B0C /* RTKStory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RTKStory.m; path = RTK/RTKStory.m; sourceTree = SOURCE_ROOT; };
+		2F572A2F1174D69000D62B0C /* RTKStoriesSearchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKStoriesSearchOperation.h; sourceTree = "<group>"; };
+		2F572A301174D69000D62B0C /* RTKStoriesSearchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKStoriesSearchOperation.m; sourceTree = "<group>"; };
 		2F7F6913116FD9DC00743CDF /* RTKKanjiDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTKKanjiDetailViewController.h; sourceTree = "<group>"; };
 		2F7F6914116FD9DC00743CDF /* RTKKanjiDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTKKanjiDetailViewController.m; sourceTree = "<group>"; };
 		2F7F6915116FD9DC00743CDF /* RTKKanjiDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RTKKanjiDetailViewController.xib; path = Classes/RTKKanjiDetailViewController.xib; sourceTree = "<group>"; };
@@ -375,6 +387,8 @@
 			children = (
 				2F3647A8116F0996001E6907 /* RTKPredicateSearchOperation.h */,
 				2F3647A9116F0996001E6907 /* RTKPredicateSearchOperation.m */,
+				2F572A2F1174D69000D62B0C /* RTKStoriesSearchOperation.h */,
+				2F572A301174D69000D62B0C /* RTKStoriesSearchOperation.m */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -454,6 +468,10 @@
 				2F20E96011647B7B00A583BA /* RTKBoxes.m */,
 				2F20E99611647CA300A583BA /* RTKSimpleBox.h */,
 				2F20E99711647CA300A583BA /* RTKSimpleBox.m */,
+				2F57291B117438EC00D62B0C /* RTKStories.h */,
+				2F57291C117438EC00D62B0C /* RTKStories.m */,
+				2F57292811743BE400D62B0C /* RTKStory.h */,
+				2F57292911743BE400D62B0C /* RTKStory.m */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -469,6 +487,8 @@
 				2F3EC538116175F400581DF1 /* RTKNewsRequest.m */,
 				2F20E9BF1164823000A583BA /* RTKBoxesRequest.h */,
 				2F20E9C01164823000A583BA /* RTKBoxesRequest.m */,
+				2F5729101174374600D62B0C /* RTKCardStoriesRequest.h */,
+				2F5729111174374600D62B0C /* RTKCardStoriesRequest.m */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -642,6 +662,10 @@
 				2F7F6916116FD9DC00743CDF /* RTKKanjiDetailViewController.m in Sources */,
 				2F34ED88116FEAF800138E29 /* RTKKanjiPracticeViewController.m in Sources */,
 				2F5728B51170D38B00D62B0C /* RTKLoadingViewController.m in Sources */,
+				2F5729121174374600D62B0C /* RTKCardStoriesRequest.m in Sources */,
+				2F57291D117438EC00D62B0C /* RTKStories.m in Sources */,
+				2F57292A11743BE400D62B0C /* RTKStory.m in Sources */,
+				2F572A311174D69000D62B0C /* RTKStoriesSearchOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -117,7 +117,10 @@
 #pragma mark NSObject Methods
 
 - (void)dealloc {
-	
+    [kanjiCache release];
+	[operationQueue release];
+    [previouslySelectedIndexPath release];
+    [filteredKanjiList release];
     [super dealloc];
 }
 

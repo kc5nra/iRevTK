@@ -68,6 +68,7 @@
 @property (retain) NSManagedObjectContext *managedObjectContext;
 @property (retain) NSArray *filteredKanjiList;
 @property (retain) NSIndexPath *previouslySelectedIndexPath;
+
 @end
 
 

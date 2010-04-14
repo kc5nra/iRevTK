@@ -76,6 +76,8 @@
 		if ([RTKResponseObject dictionaryContainsErrorResponse: dictionary]) 
 		{
 			[self setError: [RTKResponseObject getErrorResponseFromDictionary: dictionary]];
+            RTKLogO(@"%@", error);
+            
 		} else 
 		{
 			// our assumption is that if there is NOT an error in the response then it

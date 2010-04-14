@@ -27,20 +27,14 @@
 - (void)main
 {
     NSArray *result = [arrayToSearch filteredArrayUsingPredicate: filterPredicate];
-    RTKLogO(@"I'm finished with my search.");
     if (![self isCancelled]) {
         [delegate performSelectorOnMainThread:@selector(updateFilteredArray:) withObject:result waitUntilDone:YES];
-    } else {
-        RTKLog(@"I was cancelled!!");
     }
-    
-    
 }
 
 - (void)cancel
 {
     [super cancel];
-    RTKLogO(@"Received cancel message. Yay.");
 }
 
 #pragma mark -
@@ -50,6 +44,7 @@
 {
     [arrayToSearch release];
     [filterPredicate release];
+    [delegate release];
     [super dealloc];
 }
 
